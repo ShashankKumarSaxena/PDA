@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: PDA
+Version: 1.0a0
+Summary: A Python wrapper for the Discord API
+Home-page: https://github.com/SangamBot/PDA
+Author: SangamBot
+License: MIT
+Project-URL: Documentation, https://discordpy.readthedocs.io/en/latest/
+Project-URL: Issue tracker, https://github.com/SangamBot/PDA/issues
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.8.0
+Description-Content-Type: text/x-rst
+Provides-Extra: voice
+Provides-Extra: docs
+Provides-Extra: speed
