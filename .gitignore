@@ -19,4 +19,4 @@ dist/*
 discord_pda.egg-info/*
 build/*
 .metals/*
-pda/py.typed
+*py.typed
