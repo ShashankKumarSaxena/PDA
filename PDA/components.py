@@ -134,7 +134,7 @@ class Button(Component):
 
     .. note::
 
-        The user constructible and usable type to create a button is :class:`PDA.ui.Button`
+        The user constructible and usable type to create a button is :class:`pda.ui.Button`
         not this one.
 
     .. versionadded:: 2.0
@@ -208,7 +208,7 @@ class SelectMenu(Component):
     .. note::
 
         The user constructible and usable type to create a select menu is
-        :class:`PDA.ui.Select` not this one.
+        :class:`pda.ui.Select` not this one.
 
     .. versionadded:: 2.0
 

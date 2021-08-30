@@ -18,7 +18,7 @@ An example extension looks like this:
     :caption: hello.py
     :emphasize-lines: 7,8
 
-    from PDA.ext import commands
+    from pda.ext import commands
 
     @commands.command()
     async def hello(ctx):

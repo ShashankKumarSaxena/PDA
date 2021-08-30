@@ -3,7 +3,7 @@
 API Reference
 ===============
 
-The following section outlines the API of PDA.py.
+The following section outlines the API of pda.py.
 
 .. note::
 
@@ -11,7 +11,7 @@ The following section outlines the API of PDA.py.
     in an output independent way.  If the logging module is not configured,
     these logs will not be output anywhere.  See :ref:`logging_setup` for
     more information on how to set up and use the logging module with
-    PDA.py.
+    pda.py.
 
 Version Related Info
 ---------------------
@@ -162,9 +162,9 @@ PCMVolumeTransformer
 Opus Library
 ~~~~~~~~~~~~~
 
-.. autofunction:: PDA.opus.load_opus
+.. autofunction:: pda.opus.load_opus
 
-.. autofunction:: PDA.opus.is_loaded
+.. autofunction:: pda.opus.is_loaded
 
 .. _discord-api-events:
 
@@ -177,9 +177,9 @@ There are two ways to register an event, the first way is through the use of
 :meth:`Client.event`. The second way is through subclassing :class:`Client` and
 overriding the specific events. For example: ::
 
-    import PDA
+    import pda
 
-    class MyClient(PDA.Client):
+    class MyClient(pda.Client):
         async def on_message(self, message):
             if message.author == self.user:
                 return
@@ -199,7 +199,7 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 
 .. function:: on_connect()
 
-    Called when the client has successfully connected to PDA. This is not
+    Called when the client has successfully connected to pda. This is not
     the same as the client being fully prepared, see :func:`on_ready` for that.
 
     The warnings on :func:`on_ready` also apply.
@@ -207,7 +207,7 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 .. function:: on_shard_connect(shard_id)
 
     Similar to :func:`on_connect` except used by :class:`AutoShardedClient`
-    to denote when a particular shard ID has connected to PDA.
+    to denote when a particular shard ID has connected to pda.
 
     .. versionadded:: 1.4
 
@@ -225,7 +225,7 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 .. function:: on_shard_disconnect(shard_id)
 
     Similar to :func:`on_disconnect` except used by :class:`AutoShardedClient`
-    to denote when a particular shard ID has disconnected from PDA.
+    to denote when a particular shard ID has disconnected from pda.
 
     .. versionadded:: 1.4
 
@@ -234,7 +234,7 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 
 .. function:: on_ready()
 
-    Called when the client is done preparing the data received from PDA. Usually after login is successful
+    Called when the client is done preparing the data received from pda. Usually after login is successful
     and the :attr:`Client.guilds` and co. are filled up.
 
     .. warning::
@@ -621,7 +621,7 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 
         This is a low level function that is not generally meant to be used.
         If you are working with components, consider using the callbacks associated
-        with the :class:`~PDA.ui.View` instead as it provides a nicer user experience.
+        with the :class:`~pda.ui.View` instead as it provides a nicer user experience.
 
     .. versionadded:: 2.0
 
@@ -1099,31 +1099,31 @@ to handle it, which defaults to print a traceback and ignoring the exception.
 Utility Functions
 -----------------
 
-.. autofunction:: PDA.utils.find
+.. autofunction:: pda.utils.find
 
-.. autofunction:: PDA.utils.get
+.. autofunction:: pda.utils.get
 
-.. autofunction:: PDA.utils.snowflake_time
+.. autofunction:: pda.utils.snowflake_time
 
-.. autofunction:: PDA.utils.oauth_url
+.. autofunction:: pda.utils.oauth_url
 
-.. autofunction:: PDA.utils.remove_markdown
+.. autofunction:: pda.utils.remove_markdown
 
-.. autofunction:: PDA.utils.escape_markdown
+.. autofunction:: pda.utils.escape_markdown
 
-.. autofunction:: PDA.utils.escape_mentions
+.. autofunction:: pda.utils.escape_mentions
 
-.. autofunction:: PDA.utils.resolve_invite
+.. autofunction:: pda.utils.resolve_invite
 
-.. autofunction:: PDA.utils.resolve_template
+.. autofunction:: pda.utils.resolve_template
 
-.. autofunction:: PDA.utils.sleep_until
+.. autofunction:: pda.utils.sleep_until
 
-.. autofunction:: PDA.utils.utcnow
+.. autofunction:: pda.utils.utcnow
 
-.. autofunction:: PDA.utils.format_dt
+.. autofunction:: pda.utils.format_dt
 
-.. autofunction:: PDA.utils.as_chunks
+.. autofunction:: pda.utils.as_chunks
 
 .. _discord-api-enums:
 
@@ -1283,7 +1283,7 @@ of :class:`enum.Enum`.
         The system message denoting that a thread has been created. This is only
         sent if the thread has been created from an older message. The period of time
         required for a message to be considered old cannot be relied upon and is up to
-        PDA.
+        pda.
 
         .. versionadded:: 2.0
     .. attribute:: reply
@@ -3249,7 +3249,7 @@ AuditLogDiff
 Webhook Support
 ------------------
 
-PDA.py offers support for creating, editing, and executing webhooks through the :class:`Webhook` class.
+pda.py offers support for creating, editing, and executing webhooks through the :class:`Webhook` class.
 
 Webhook
 ~~~~~~~~~
@@ -3300,56 +3300,56 @@ This library has a module related to abstract base classes, in which all the ABC
 Snowflake
 ~~~~~~~~~~
 
-.. attributetable:: PDA.abc.Snowflake
+.. attributetable:: pda.abc.Snowflake
 
-.. autoclass:: PDA.abc.Snowflake()
+.. autoclass:: pda.abc.Snowflake()
     :members:
 
 User
 ~~~~~
 
-.. attributetable:: PDA.abc.User
+.. attributetable:: pda.abc.User
 
-.. autoclass:: PDA.abc.User()
+.. autoclass:: pda.abc.User()
     :members:
 
 PrivateChannel
 ~~~~~~~~~~~~~~~
 
-.. attributetable:: PDA.abc.PrivateChannel
+.. attributetable:: pda.abc.PrivateChannel
 
-.. autoclass:: PDA.abc.PrivateChannel()
+.. autoclass:: pda.abc.PrivateChannel()
     :members:
 
 GuildChannel
 ~~~~~~~~~~~~~
 
-.. attributetable:: PDA.abc.GuildChannel
+.. attributetable:: pda.abc.GuildChannel
 
-.. autoclass:: PDA.abc.GuildChannel()
+.. autoclass:: pda.abc.GuildChannel()
     :members:
 
 Messageable
 ~~~~~~~~~~~~
 
-.. attributetable:: PDA.abc.Messageable
+.. attributetable:: pda.abc.Messageable
 
-.. autoclass:: PDA.abc.Messageable()
+.. autoclass:: pda.abc.Messageable()
     :members:
     :exclude-members: history, typing
 
-    .. automethod:: PDA.abc.Messageable.history
+    .. automethod:: pda.abc.Messageable.history
         :async-for:
 
-    .. automethod:: PDA.abc.Messageable.typing
+    .. automethod:: pda.abc.Messageable.typing
         :async-with:
 
 Connectable
 ~~~~~~~~~~~~
 
-.. attributetable:: PDA.abc.Connectable
+.. attributetable:: pda.abc.Connectable
 
-.. autoclass:: PDA.abc.Connectable()
+.. autoclass:: pda.abc.Connectable()
 
 .. _discord_api_models:
 
@@ -4121,40 +4121,40 @@ The library has helpers to help create component-based UIs.
 View
 ~~~~~~~
 
-.. attributetable:: PDA.ui.View
+.. attributetable:: pda.ui.View
 
-.. autoclass:: PDA.ui.View
+.. autoclass:: pda.ui.View
     :members:
 
 Item
 ~~~~~~~
 
-.. attributetable:: PDA.ui.Item
+.. attributetable:: pda.ui.Item
 
-.. autoclass:: PDA.ui.Item
+.. autoclass:: pda.ui.Item
     :members:
 
 Button
 ~~~~~~~
 
-.. attributetable:: PDA.ui.Button
+.. attributetable:: pda.ui.Button
 
-.. autoclass:: PDA.ui.Button
+.. autoclass:: pda.ui.Button
     :members:
     :inherited-members:
 
-.. autofunction:: PDA.ui.button
+.. autofunction:: pda.ui.button
 
 Select
 ~~~~~~~
 
-.. attributetable:: PDA.ui.Select
+.. attributetable:: pda.ui.Select
 
-.. autoclass:: PDA.ui.Select
+.. autoclass:: pda.ui.Select
     :members:
     :inherited-members:
 
-.. autofunction:: PDA.ui.select
+.. autofunction:: pda.ui.select
 
 
 Exceptions
@@ -4191,9 +4191,9 @@ The following exceptions are thrown by the library.
 
 .. autoexception:: InteractionResponded
 
-.. autoexception:: PDA.opus.OpusError
+.. autoexception:: pda.opus.OpusError
 
-.. autoexception:: PDA.opus.OpusNotLoaded
+.. autoexception:: pda.opus.OpusNotLoaded
 
 Exception Hierarchy
 ~~~~~~~~~~~~~~~~~~~~~

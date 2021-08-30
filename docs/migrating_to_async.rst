@@ -175,9 +175,9 @@ After:
 
 .. code-block:: python3
 
-    server.region == PDA.ServerRegion.us_west
-    member.status = PDA.Status.online
-    channel.type == PDA.ChannelType.text
+    server.region == pda.ServerRegion.us_west
+    member.status = pda.Status.online
+    channel.type == pda.ChannelType.text
 
 The main reason for this change was to reduce the use of finicky strings in the API as this
 could give users a false sense of power. More information can be found in the :ref:`discord-api-enums` page.
@@ -270,7 +270,7 @@ in the function signature.
 Running the Client
 --------------------
 
-In earlier versions of PDA.py, ``client.run()`` was a blocking call to the main thread
+In earlier versions of pda.py, ``client.run()`` was a blocking call to the main thread
 that called it. In v0.10.0 it is still a blocking call but it handles the event loop for you.
 However, in order to do that you must pass in your credentials to :meth:`Client.run`.
 
@@ -300,10 +300,10 @@ event loop then doing so is quite straightforward:
 
 .. code-block:: python3
 
-    import PDA
+    import pda
     import asyncio
 
-    client = PDA.Client()
+    client = pda.Client()
 
     @asyncio.coroutine
     def main_task():

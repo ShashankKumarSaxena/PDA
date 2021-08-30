@@ -193,7 +193,7 @@ class Guild(Hashable):
         The guild's notification settings.
     features: List[:class:`str`]
         A list of features that the guild has. The features that a guild can have are
-        subject to arbitrary change by PDA.
+        subject to arbitrary change by pda.
 
         They are currently as follows:
 
@@ -215,7 +215,7 @@ class Guild(Hashable):
         - ``SEVEN_DAY_THREAD_ARCHIVE``: Guild has access to the seven day archive time for threads.
         - ``THREE_DAY_THREAD_ARCHIVE``: Guild has access to the three day archive time for threads.
         - ``TICKETED_EVENTS_ENABLED``: Guild has enabled ticketed events.
-        - ``VANITY_URL``: Guild can have a vanity invite URL (e.g. PDA.gg/discord-api).
+        - ``VANITY_URL``: Guild can have a vanity invite URL (e.g. pda.gg/discord-api).
         - ``VERIFIED``: Guild is a verified server.
         - ``VIP_REGIONS``: Guild has VIP voice regions.
         - ``WELCOME_SCREEN_ENABLED``: Guild has enabled the welcome screen.
@@ -695,7 +695,7 @@ class Guild(Hashable):
     @property
     def public_updates_channel(self) -> Optional[TextChannel]:
         """Optional[:class:`TextChannel`]: Return's the guild's channel where admins and
-        moderators of the guilds receive notices from PDA. The guild must be a
+        moderators of the guilds receive notices from pda. The guild must be a
         Community guild.
 
         If no channel is set, then this returns ``None``.
@@ -1032,8 +1032,8 @@ class Guild(Hashable):
         .. code-block:: python3
 
             overwrites = {
-                guild.default_role: PDA.PermissionOverwrite(read_messages=False),
-                guild.me: PDA.PermissionOverwrite(read_messages=True)
+                guild.default_role: pda.PermissionOverwrite(read_messages=False),
+                guild.me: pda.PermissionOverwrite(read_messages=True)
             }
 
             channel = await guild.create_text_channel('secret', overwrites=overwrites)
@@ -1430,7 +1430,7 @@ class Guild(Hashable):
             guilds that contain ``PUBLIC`` in :attr:`Guild.features`. Could be ``None`` for no rules
             channel.
         public_updates_channel: Optional[:class:`TextChannel`]
-            The new channel that is used for public updates from PDA. This is only available to
+            The new channel that is used for public updates from pda. This is only available to
             guilds that contain ``PUBLIC`` in :attr:`Guild.features`. Could be ``None`` for no
             public updates channel.
         reason: Optional[:class:`str`]
@@ -1581,7 +1581,7 @@ class Guild(Hashable):
         Raises
         -------
         InvalidData
-            An unknown channel type was received from PDA.
+            An unknown channel type was received from pda.
         HTTPException
             Retrieving the channels failed.
 
@@ -2709,7 +2709,7 @@ class Guild(Hashable):
 
         Getting entries for a specific action: ::
 
-            async for entry in guild.audit_logs(action=PDA.AuditLogAction.ban):
+            async for entry in guild.audit_logs(action=pda.AuditLogAction.ban):
                 print(f'{entry.user} banned {entry.target}')
 
         Getting entries made by a specific user: ::
@@ -2800,7 +2800,7 @@ class Guild(Hashable):
         -----------
         enabled: :class:`bool`
             Whether to enable the widget for the guild.
-        channel: Optional[:class:`~PDA.abc.Snowflake`]
+        channel: Optional[:class:`~pda.abc.Snowflake`]
             The new widget channel. ``None`` removes the widget channel.
 
         Raises

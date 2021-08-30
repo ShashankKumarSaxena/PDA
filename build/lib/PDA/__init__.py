@@ -9,7 +9,7 @@ A basic wrapper for the Discord API.
 
 """
 
-__title__ = 'PDA'
+__title__ = 'pda'
 __author__ = 'SangamBot'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2015-present Rapptz'

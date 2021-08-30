@@ -138,7 +138,7 @@ class BaseActivity:
 
 
 class Activity(BaseActivity):
-    """Represents an activity in PDA.
+    """Represents an activity in pda.
 
     This could be an activity such as streaming, playing, listening
     or watching.
@@ -537,7 +537,7 @@ class Streaming(BaseActivity):
 
 
 class Spotify:
-    """Represents a Spotify listening activity from PDA. This is a special case of
+    """Represents a Spotify listening activity from pda. This is a special case of
     :class:`Activity` that makes it easier to work with the Spotify integration.
 
     .. container:: operations
@@ -708,7 +708,7 @@ class Spotify:
 
 
 class CustomActivity(BaseActivity):
-    """Represents a Custom activity from PDA.
+    """Represents a Custom activity from pda.
 
     .. container:: operations
 

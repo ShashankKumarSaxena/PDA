@@ -313,4 +313,4 @@ class Template:
         
         .. versionadded:: 2.0
         """
-        return f'https://PDA.new/{self.code}'
+        return f'https://pda.new/{self.code}'

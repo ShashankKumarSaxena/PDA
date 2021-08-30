@@ -367,7 +367,7 @@ class SyncWebhookMessage(Message):
     This allows you to edit or delete a message sent by your
     webhook.
 
-    This inherits from :class:`PDA.Message` with changes to
+    This inherits from :class:`pda.Message` with changes to
     :meth:`edit` and :meth:`delete` to work.
 
     .. versionadded:: 2.0
@@ -856,7 +856,7 @@ class SyncWebhook(BaseWebhook):
             Controls the mentions being processed in this message.
 
             .. versionadded:: 1.4
-        thread: :class:`~PDA.abc.Snowflake`
+        thread: :class:`~pda.abc.Snowflake`
             The thread to send this message to.
 
             .. versionadded:: 2.0
@@ -920,7 +920,7 @@ class SyncWebhook(BaseWebhook):
             return self._create_message(data)
 
     def fetch_message(self, id: int, /) -> SyncWebhookMessage:
-        """Retrieves a single :class:`~PDA.SyncWebhookMessage` owned by this webhook.
+        """Retrieves a single :class:`~pda.SyncWebhookMessage` owned by this webhook.
 
         .. versionadded:: 2.0
 
@@ -931,18 +931,18 @@ class SyncWebhook(BaseWebhook):
 
         Raises
         --------
-        ~PDA.NotFound
+        ~pda.NotFound
             The specified message was not found.
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have the permissions required to get a message.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Retrieving the message failed.
         InvalidArgument
             There was no token associated with this webhook.
 
         Returns
         --------
-        :class:`~PDA.SyncWebhookMessage`
+        :class:`~pda.SyncWebhookMessage`
             The message asked for.
         """
 

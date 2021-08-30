@@ -280,10 +280,10 @@ def oauth_url(
     -----------
     client_id: Union[:class:`int`, :class:`str`]
         The client ID for your bot.
-    permissions: :class:`~PDA.Permissions`
+    permissions: :class:`~pda.Permissions`
         The permissions you're requesting. If not given then you won't be requesting any
         permissions.
-    guild: :class:`~PDA.abc.Snowflake`
+    guild: :class:`~pda.abc.Snowflake`
         The guild to pre-select in the authorization screen, if available.
     redirect_uri: :class:`str`
         An optional valid redirect URI.
@@ -362,9 +362,9 @@ def find(predicate: Callable[[T], Any], seq: Iterable[T]) -> Optional[T]:
     """A helper to return the first element found in the sequence
     that meets the predicate. For example: ::
 
-        member = PDA.utils.find(lambda m: m.name == 'Mighty', channel.guild.members)
+        member = pda.utils.find(lambda m: m.name == 'Mighty', channel.guild.members)
 
-    would find the first :class:`~PDA.Member` whose name is 'Mighty' and return it.
+    would find the first :class:`~pda.Member` whose name is 'Mighty' and return it.
     If an entry is not found, then ``None`` is returned.
 
     This is different from :func:`py:filter` due to the fact it stops the moment it finds
@@ -387,7 +387,7 @@ def find(predicate: Callable[[T], Any], seq: Iterable[T]) -> Optional[T]:
 def get(iterable: Iterable[T], **attrs: Any) -> Optional[T]:
     r"""A helper that returns the first element in the iterable that meets
     all the traits passed in ``attrs``. This is an alternative for
-    :func:`~PDA.utils.find`.
+    :func:`~pda.utils.find`.
 
     When multiple attributes are specified, they are checked using
     logical AND, not logical OR. Meaning they have to meet every
@@ -406,19 +406,19 @@ def get(iterable: Iterable[T], **attrs: Any) -> Optional[T]:
 
     .. code-block:: python3
 
-        member = PDA.utils.get(message.guild.members, name='Foo')
+        member = pda.utils.get(message.guild.members, name='Foo')
 
     Multiple attribute matching:
 
     .. code-block:: python3
 
-        channel = PDA.utils.get(guild.voice_channels, name='Foo', bitrate=64000)
+        channel = pda.utils.get(guild.voice_channels, name='Foo', bitrate=64000)
 
     Nested attribute matching:
 
     .. code-block:: python3
 
-        channel = PDA.utils.get(client.get_all_channels(), guild__name='Cool', name='general')
+        channel = pda.utils.get(client.get_all_channels(), guild__name='Cool', name='general')
 
     Parameters
     -----------
@@ -643,11 +643,11 @@ def _string_width(string: str, *, _IS_ASCII=_IS_ASCII) -> int:
 
 def resolve_invite(invite: Union[Invite, str]) -> str:
     """
-    Resolves an invite from a :class:`~PDA.Invite`, URL or code.
+    Resolves an invite from a :class:`~pda.Invite`, URL or code.
 
     Parameters
     -----------
-    invite: Union[:class:`~PDA.Invite`, :class:`str`]
+    invite: Union[:class:`~pda.Invite`, :class:`str`]
         The invite.
 
     Returns
@@ -669,13 +669,13 @@ def resolve_invite(invite: Union[Invite, str]) -> str:
 
 def resolve_template(code: Union[Template, str]) -> str:
     """
-    Resolves a template code from a :class:`~PDA.Template`, URL or code.
+    Resolves a template code from a :class:`~pda.Template`, URL or code.
 
     .. versionadded:: 1.4
 
     Parameters
     -----------
-    code: Union[:class:`~PDA.Template`, :class:`str`]
+    code: Union[:class:`~pda.Template`, :class:`str`]
         The code.
 
     Returns
@@ -793,7 +793,7 @@ def escape_mentions(text: str) -> str:
     .. note::
 
         For more granular control over what mentions should be escaped
-        within messages, refer to the :class:`~PDA.AllowedMentions`
+        within messages, refer to the :class:`~pda.AllowedMentions`
         class.
 
     Parameters
@@ -975,7 +975,7 @@ TimestampStyle = Literal['f', 'F', 'd', 'D', 't', 'T', 'R']
 
 
 def format_dt(dt: datetime.datetime, /, style: Optional[TimestampStyle] = None) -> str:
-    """A helper function to format a :class:`datetime.datetime` for presentation within PDA.
+    """A helper function to format a :class:`datetime.datetime` for presentation within pda.
 
     This allows for a locale-independent way of presenting data using Discord specific Markdown.
 

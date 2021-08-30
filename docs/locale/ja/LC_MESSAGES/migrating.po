@@ -51,8 +51,8 @@ msgid ""
 "to remove support for Python versions lower than 3.5.3, which essentially"
 " means that **support for Python 3.4 is dropped**."
 msgstr ""
-"PDA.py の開発をより簡単にし，またその依存関係にあるライブラリをアップグレードして Python 3.7 "
-"以上を使えるようにするために，PDA.py は Python 3.5.3 "
+"pda.py の開発をより簡単にし，またその依存関係にあるライブラリをアップグレードして Python 3.7 "
+"以上を使えるようにするために，pda.py は Python 3.5.3 "
 "より古いバージョンに対するサポートを諦めざるを得ませんでした。これはつまり **Python 3.4 に対するサポートは打ち切られた** "
 "ということです。"
 
@@ -934,10 +934,10 @@ msgstr "代わりに ``isinstance`` と :ref:`discord_api_abcs` を使用して�
 
 #: ../../migrating.rst:346
 msgid ""
-"e.g. ``isinstance(channel, PDA.abc.GuildChannel)`` will check if it "
+"e.g. ``isinstance(channel, pda.abc.GuildChannel)`` will check if it "
 "isn't a private channel."
 msgstr ""
-"例を挙げると ``isinstance(channel, PDA.abc.GuildChannel)`` "
+"例を挙げると ``isinstance(channel, pda.abc.GuildChannel)`` "
 "でプライベートチャンネルであるかを確認できます。"
 
 #: ../../migrating.rst:348
@@ -960,7 +960,7 @@ msgstr ""
 
 #: ../../migrating.rst:354
 msgid ""
-"The concept of a default channel was removed from PDA. See `#329 "
+"The concept of a default channel was removed from pda. See `#329 "
 "<https://github.com/hammerandchisel/discord-api-docs/pull/329>`_."
 msgstr ""
 "デフォルトチャンネルの概念は、Discordから削除されました。 `#329 "
@@ -1241,12 +1241,12 @@ msgstr ""
 
 #: ../../migrating.rst:484
 msgid ""
-"You can also get single elements a la :func:`PDA.utils.find` or "
-":func:`PDA.utils.get` via :meth:`AsyncIterator.get` or "
+"You can also get single elements a la :func:`pda.utils.find` or "
+":func:`pda.utils.get` via :meth:`AsyncIterator.get` or "
 ":meth:`AsyncIterator.find`: ::"
 msgstr ""
 ":meth:`AsyncIterator.get` または :meth:`AsyncIterator.find` を介して "
-":func:`PDA.utils.get` または :func:`PDA.utils.find` "
+":func:`pda.utils.get` または :func:`pda.utils.find` "
 "で単一の要素を取得することもできます。"
 
 #: ../../migrating.rst:489

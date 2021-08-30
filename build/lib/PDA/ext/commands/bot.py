@@ -35,7 +35,7 @@ import traceback
 import types
 from typing import Any, Callable, Mapping, List, Dict, TYPE_CHECKING, Optional, TypeVar, Type, Union
 
-import PDA
+import pda
 
 from .core import GroupMixin
 from .view import StringView
@@ -47,7 +47,7 @@ from .cog import Cog
 if TYPE_CHECKING:
     import importlib.machinery
 
-    from PDA.message import Message
+    from pda.message import Message
     from ._types import (
         Check,
         CoroFunc,
@@ -60,7 +60,7 @@ __all__ = (
     'AutoShardedBot',
 )
 
-MISSING: Any = PDA.utils.MISSING
+MISSING: Any = pda.utils.MISSING
 
 T = TypeVar('T')
 CFT = TypeVar('CFT', bound='CoroFunc')
@@ -156,7 +156,7 @@ class BotBase(GroupMixin):
         for event in self.extra_events.get(ev, []):
             self._schedule_event(event, ev, *args, **kwargs)  # type: ignore
 
-    @PDA.utils.copy_doc(PDA.Client.close)
+    @pda.utils.copy_doc(pda.Client.close)
     async def close(self) -> None:
         for extension in tuple(self.__extensions):
             try:
@@ -313,12 +313,12 @@ class BotBase(GroupMixin):
             return True
 
         # type-checker doesn't distinguish between functions and methods
-        return await PDA.utils.async_all(f(ctx) for f in data)  # type: ignore
+        return await pda.utils.async_all(f(ctx) for f in data)  # type: ignore
 
-    async def is_owner(self, user: PDA.User) -> bool:
+    async def is_owner(self, user: pda.User) -> bool:
         """|coro|
 
-        Checks if a :class:`~PDA.User` or :class:`~PDA.Member` is the owner of
+        Checks if a :class:`~pda.User` or :class:`~pda.Member` is the owner of
         this bot.
 
         If an :attr:`owner_id` is not set, it is fetched automatically
@@ -551,7 +551,7 @@ class BotBase(GroupMixin):
 
         if existing is not None:
             if not override:
-                raise PDA.ClientException(f'Cog named {cog_name!r} already loaded')
+                raise pda.ClientException(f'Cog named {cog_name!r} already loaded')
             self.remove_cog(cog_name)
 
         cog = cog._inject(self)
@@ -874,7 +874,7 @@ class BotBase(GroupMixin):
 
         Parameters
         -----------
-        message: :class:`PDA.Message`
+        message: :class:`pda.Message`
             The message context to get the prefix of.
 
         Returns
@@ -885,7 +885,7 @@ class BotBase(GroupMixin):
         """
         prefix = ret = self.command_prefix
         if callable(prefix):
-            ret = await PDA.utils.maybe_coroutine(prefix, self, message)
+            ret = await pda.utils.maybe_coroutine(prefix, self, message)
 
         if not isinstance(ret, str):
             try:
@@ -919,7 +919,7 @@ class BotBase(GroupMixin):
 
         Parameters
         -----------
-        message: :class:`PDA.Message`
+        message: :class:`pda.Message`
             The message to get the invocation context from.
         cls
             The factory class that will be used to create the context.
@@ -951,7 +951,7 @@ class BotBase(GroupMixin):
                 # if the context class' __init__ consumes something from the view this
                 # will be wrong.  That seems unreasonable though.
                 if message.content.startswith(tuple(prefix)):
-                    invoked_prefix = PDA.utils.find(view.skip_string, prefix)
+                    invoked_prefix = pda.utils.find(view.skip_string, prefix)
                 else:
                     return ctx
 
@@ -1024,24 +1024,23 @@ class BotBase(GroupMixin):
 
         Parameters
         -----------
-        message: :class:`PDA.Message`
+        message: :class:`pda.Message`
             The message to process commands for.
         """
-        print("HERe")
         if message.author.bot:
             return
 
         ctx = await self.get_context(message)
         await self.invoke(ctx)
 
-    async def on_message(self, message):
+    async def on_message(self, message: Message):
         await self.process_commands(message)
 
-class Bot(BotBase, PDA.Client):
+class Bot(BotBase, pda.Client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`PDA.Client` and as a result
-    anything that you can do with a :class:`PDA.Client` you can do with
+    This class is a subclass of :class:`pda.Client` and as a result
+    anything that you can do with a :class:`pda.Client` you can do with
     this bot.
 
     This class also subclasses :class:`.GroupMixin` to provide the functionality
@@ -1053,7 +1052,7 @@ class Bot(BotBase, PDA.Client):
         The command prefix is what the message content must contain initially
         to have a command invoked. This prefix could either be a string to
         indicate what the prefix should be, or a callable that takes in the bot
-        as its first parameter and :class:`PDA.Message` as its second
+        as its first parameter and :class:`pda.Message` as its second
         parameter and returns the prefix. This is to facilitate "dynamic"
         command prefixes. This callable can be either a regular function or
         a coroutine.
@@ -1109,8 +1108,8 @@ class Bot(BotBase, PDA.Client):
     """
     pass
 
-class AutoShardedBot(BotBase, PDA.AutoShardedClient):
+class AutoShardedBot(BotBase, pda.AutoShardedClient):
     """This is similar to :class:`.Bot` except that it is inherited from
-    :class:`PDA.AutoShardedClient` instead.
+    :class:`pda.AutoShardedClient` instead.
     """
     pass

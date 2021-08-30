@@ -1,8 +1,8 @@
 # This example requires the 'members' privileged intents
 
-import PDA
+import pda
 
-class MyClient(PDA.Client):
+class MyClient(pda.Client):
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
@@ -14,7 +14,7 @@ class MyClient(PDA.Client):
             await guild.system_channel.send(to_send)
 
 
-intents = PDA.Intents.default()
+intents = pda.Intents.default()
 intents.members = True
 
 client = MyClient(intents=intents)

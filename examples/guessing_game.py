@@ -1,8 +1,8 @@
-import PDA
+import pda
 import random
 import asyncio
 
-class MyClient(PDA.Client):
+class MyClient(pda.Client):
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')

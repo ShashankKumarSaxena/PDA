@@ -1,7 +1,7 @@
-import PDA
+import pda
 import asyncio
 
-class MyClient(PDA.Client):
+class MyClient(pda.Client):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

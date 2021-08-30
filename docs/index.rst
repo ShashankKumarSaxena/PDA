@@ -1,16 +1,16 @@
-.. PDA.py documentation master file, created by
+.. pda.py documentation master file, created by
    sphinx-quickstart on Fri Aug 21 05:43:30 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PDA.py
+Welcome to pda.py
 ===========================
 
 .. image:: /images/snake.svg
 .. image:: /images/snake_dark.svg
 
-PDA.py is a modern, easy to use, feature-rich, and async ready API wrapper
-for PDA.
+pda.py is a modern, easy to use, feature-rich, and async ready API wrapper
+for pda.
 
 **Features:**
 
@@ -60,8 +60,8 @@ These pages go into great detail about everything the API can do.
   :maxdepth: 1
 
   api
-  PDA.ext.commands API Reference <ext/commands/api.rst>
-  PDA.ext.tasks API Reference <ext/tasks/index.rst>
+  pda.ext.commands API Reference <ext/commands/api.rst>
+  pda.ext.tasks API Reference <ext/tasks/index.rst>
 
 Meta
 ------

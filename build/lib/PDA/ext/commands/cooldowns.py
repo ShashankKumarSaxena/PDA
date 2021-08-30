@@ -26,7 +26,7 @@ from __future__ import annotations
 
 
 from typing import Any, Callable, Deque, Dict, Optional, Type, TypeVar, TYPE_CHECKING
-from PDA.enums import Enum
+from pda.enums import Enum
 import time
 import asyncio
 from collections import deque

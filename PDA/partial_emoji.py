@@ -76,7 +76,7 @@ class PartialEmoji(_EmojiTag, AssetMixin):
 
         .. describe:: str(x)
 
-            Returns the emoji rendered for PDA.
+            Returns the emoji rendered for pda.
 
     Attributes
     -----------

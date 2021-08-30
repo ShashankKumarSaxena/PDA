@@ -249,7 +249,7 @@ class DiscordWebSocket:
     gateway
         The gateway we are currently connected to.
     token
-        The authentication token for PDA.
+        The authentication token for pda.
     """
 
     DISPATCH           = 0
@@ -375,8 +375,8 @@ class DiscordWebSocket:
                 'token': self.token,
                 'properties': {
                     '$os': sys.platform,
-                    '$browser': 'PDA.py',
-                    '$device': 'PDA.py',
+                    '$browser': 'pda.py',
+                    '$device': 'pda.py',
                     '$referrer': '',
                     '$referring_domain': ''
                 },

@@ -1,5 +1,5 @@
 #
-# PDA.py documentation build configuration file, created by
+# pda.py documentation build configuration file, created by
 # sphinx-quickstart on Fri Aug 21 05:43:30 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,7 +49,7 @@ autodoc_typehints = 'none'
 # napoleon_attr_annotations = False
 
 extlinks = {
-    'issue': ('https://github.com/Rapptz/PDA.py/issues/%s', 'GH-'),
+    'issue': ('https://github.com/Rapptz/pda.py/issues/%s', 'GH-'),
 }
 
 # Links used for cross-referencing stuff in other documentation
@@ -79,7 +79,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'PDA.py'
+project = 'pda.py'
 copyright = '2015-present, Rapptz'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -159,18 +159,18 @@ html_experimental_html5_writer = True
 html_theme = 'basic'
 
 html_context = {
-  'discord_invite': 'https://PDA.gg/r3sSKJJ',
+  'discord_invite': 'https://pda.gg/r3sSKJJ',
   'discord_extensions': [
-    ('PDA.ext.commands', 'ext/commands'),
-    ('PDA.ext.tasks', 'ext/tasks'),
+    ('pda.ext.commands', 'ext/commands'),
+    ('pda.ext.tasks', 'ext/tasks'),
   ],
 }
 
 resource_links = {
-  'discord': 'https://PDA.gg/r3sSKJJ',
-  'issues': 'https://github.com/Rapptz/PDA.py/issues',
-  'discussions': 'https://github.com/Rapptz/PDA.py/discussions',
-  'examples': f'https://github.com/Rapptz/PDA.py/tree/{branch}/examples',
+  'discord': 'https://pda.gg/r3sSKJJ',
+  'issues': 'https://github.com/Rapptz/pda.py/issues',
+  'discussions': 'https://github.com/Rapptz/pda.py/discussions',
+  'examples': f'https://github.com/Rapptz/pda.py/tree/{branch}/examples',
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -271,7 +271,7 @@ html_js_files = [
 ]
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PDA.pydoc'
+htmlhelp_basename = 'pda.pydoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -293,7 +293,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'PDA.py.tex', 'PDA.py Documentation',
+  ('index', 'pda.py.tex', 'pda.py Documentation',
    'Rapptz', 'manual'),
 ]
 
@@ -323,7 +323,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'PDA.py', 'PDA.py Documentation',
+    ('index', 'pda.py', 'pda.py Documentation',
      ['Rapptz'], 1)
 ]
 
@@ -337,8 +337,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'PDA.py', 'PDA.py Documentation',
-   'Rapptz', 'PDA.py', 'One line description of project.',
+  ('index', 'pda.py', 'pda.py Documentation',
+   'Rapptz', 'pda.py', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -357,5 +357,5 @@ texinfo_documents = [
 def setup(app):
   if app.config.language == 'ja':
     app.config.intersphinx_mapping['py'] = ('https://docs.python.org/ja/3', None)
-    app.config.html_context['discord_invite'] = 'https://PDA.gg/nXzj3dg'
-    app.config.resource_links['discord'] = 'https://PDA.gg/nXzj3dg'
+    app.config.html_context['discord_invite'] = 'https://pda.gg/nXzj3dg'
+    app.config.resource_links['discord'] = 'https://pda.gg/nXzj3dg'

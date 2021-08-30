@@ -1,7 +1,7 @@
 import typing
 
-import PDA
-from PDA.ext import commands
+import pda
+from pda.ext import commands
 
 bot = commands.Bot(command_prefix=commands.when_mentioned, description="Nothing to see here!")
 
@@ -16,8 +16,8 @@ def create_overwrites(ctx, *objects):
     """This is just a helper function that creates the overwrites for the 
     voice/text channels.
 
-    A `PDA.PermissionOverwrite` allows you to determine the permissions
-    of an object, whether it be a `PDA.Role` or a `PDA.Member`.
+    A `pda.PermissionOverwrite` allows you to determine the permissions
+    of an object, whether it be a `pda.Role` or a `pda.Member`.
 
     In this case, the `view_channel` permission is being used to hide the channel
     from being viewed by whoever does not meet the criteria, thus creating a
@@ -25,18 +25,18 @@ def create_overwrites(ctx, *objects):
     """
 
     # a dict comprehension is being utilised here to set the same permission overwrites
-    # for each `PDA.Role` or `PDA.Member`.
+    # for each `pda.Role` or `pda.Member`.
     overwrites = {
-        obj: PDA.PermissionOverwrite(view_channel=True)
+        obj: pda.PermissionOverwrite(view_channel=True)
         for obj in objects
     }
 
     # prevents the default role (@everyone) from viewing the channel
     # if it isn't already allowed to view the channel.
-    overwrites.setdefault(ctx.guild.default_role, PDA.PermissionOverwrite(view_channel=False))
+    overwrites.setdefault(ctx.guild.default_role, pda.PermissionOverwrite(view_channel=False))
 
     # makes sure the client is always allowed to view the channel.
-    overwrites[ctx.guild.me] = PDA.PermissionOverwrite(view_channel=True)
+    overwrites[ctx.guild.me] = pda.PermissionOverwrite(view_channel=True)
 
     return overwrites
 
@@ -44,7 +44,7 @@ def create_overwrites(ctx, *objects):
 # it is best to lock it to be guild-only.
 @secret.command()
 @commands.guild_only()
-async def text(ctx: commands.Context, name: str, *objects: typing.Union[PDA.Role, PDA.Member]):
+async def text(ctx: commands.Context, name: str, *objects: typing.Union[pda.Role, pda.Member]):
     """This makes a text channel with a specified name 
     that is only visible to roles or members that are specified.
     """
@@ -60,7 +60,7 @@ async def text(ctx: commands.Context, name: str, *objects: typing.Union[PDA.Role
 
 @secret.command()
 @commands.guild_only()
-async def voice(ctx: commands.Context, name: str, *objects: typing.Union[PDA.Role, PDA.Member]):
+async def voice(ctx: commands.Context, name: str, *objects: typing.Union[pda.Role, pda.Member]):
     """This does the same thing as the `text` subcommand
     but instead creates a voice channel.
     """
@@ -75,7 +75,7 @@ async def voice(ctx: commands.Context, name: str, *objects: typing.Union[PDA.Rol
 
 @secret.command()
 @commands.guild_only()
-async def emoji(ctx: commands.Context, emoji: PDA.PartialEmoji, *roles: PDA.Role):
+async def emoji(ctx: commands.Context, emoji: pda.PartialEmoji, *roles: pda.Role):
     """This clones a specified emoji that only specified roles
     are allowed to use.
     """

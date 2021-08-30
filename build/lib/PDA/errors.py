@@ -56,7 +56,7 @@ __all__ = (
 
 
 class DiscordException(Exception):
-    """Base exception class for PDA
+    """Base exception class for pda
 
     Ideally speaking, this could be caught to handle any exceptions raised from this library.
     """

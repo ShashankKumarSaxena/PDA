@@ -46,7 +46,7 @@ __all__ = (
 
 
 class AppInfo:
-    """Represents the application info for the bot provided by PDA.
+    """Represents the application info for the bot provided by pda.
 
 
     Attributes
@@ -180,7 +180,7 @@ class AppInfo:
     def cover_image(self) -> Optional[Asset]:
         """Optional[:class:`.Asset`]: Retrieves the cover image on a store embed, if any.
 
-        This is only available if the application is a game sold on PDA.
+        This is only available if the application is a game sold on pda.
         """
         if self._cover_image is None:
             return None
@@ -196,7 +196,7 @@ class AppInfo:
         return self._state._get_guild(self.guild_id)
 
 class PartialAppInfo:
-    """Represents a partial AppInfo given by :func:`~PDA.abc.GuildChannel.create_invite`
+    """Represents a partial AppInfo given by :func:`~pda.abc.GuildChannel.create_invite`
 
     .. versionadded:: 2.0
 

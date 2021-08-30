@@ -1,13 +1,12 @@
-from PDA.ext.commands.core import command
-from PDA.ext import commands
-import PDA
+from pda.ext import commands
+import pda
 
 bot = commands.Bot(command_prefix="%")
 
 
 @bot.event
 async def on_ready():
-    print("Bot is Online WITH PDA!!")
+    print("Bot is Online WITH pda!!")
 
 
 # NOTE: Don't assign message event on bot directly... If you do so invoke the process_commands() function at the end
@@ -22,4 +21,4 @@ async def ping(ctx: commands.Context):
 
 bot.load_extension("test-cog")
 
-bot.run("TOKEN")
+bot.run("NzM0MDg4MzU3NDIzODc0MDU5.XxMnDw.8aejlBBXrP83oIu-IXGvY94Siq0")

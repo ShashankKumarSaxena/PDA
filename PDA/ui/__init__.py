@@ -1,5 +1,5 @@
 """
-PDA.ui
+pda.ui
 ~~~~~~~~~~~
 
 Bot UI Kit helper for the Discord API

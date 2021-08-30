@@ -118,7 +118,7 @@ class _ViewWeights:
 class View:
     """Represents a UI view.
 
-    This object must be inherited to create a UI within PDA.
+    This object must be inherited to create a UI within pda.
 
     .. versionadded:: 2.0
 
@@ -215,13 +215,13 @@ class View:
         """Converts a message's components into a :class:`View`.
 
         The :attr:`.Message.components` of a message are read-only
-        and separate types from those in the ``PDA.ui`` namespace.
+        and separate types from those in the ``pda.ui`` namespace.
         In order to modify and edit message components they must be
         converted into a :class:`View` first.
 
         Parameters
         -----------
-        message: :class:`PDA.Message`
+        message: :class:`pda.Message`
             The message with components to convert into a view.
         timeout: Optional[:class:`float`]
             The timeout of the converted view.
@@ -310,7 +310,7 @@ class View:
 
         Parameters
         -----------
-        interaction: :class:`~PDA.Interaction`
+        interaction: :class:`~pda.Interaction`
             The interaction that occurred.
 
         Returns
@@ -341,7 +341,7 @@ class View:
             The exception that was raised.
         item: :class:`Item`
             The item that failed the dispatch.
-        interaction: :class:`~PDA.Interaction`
+        interaction: :class:`~pda.Interaction`
             The interaction that led to the failure.
         """
         print(f'Ignoring exception in view {self} for item {item}:', file=sys.stderr)

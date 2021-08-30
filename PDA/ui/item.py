@@ -47,8 +47,8 @@ class Item(Generic[V]):
 
     The current UI items supported are:
 
-    - :class:`PDA.ui.Button`
-    - :class:`PDA.ui.Select`
+    - :class:`pda.ui.Button`
+    - :class:`pda.ui.Select`
 
     .. versionadded:: 2.0
     """

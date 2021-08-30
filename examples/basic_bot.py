@@ -1,15 +1,15 @@
 # This example requires the 'members' privileged intents
 
-import PDA
-from PDA.ext import commands
+import pda
+from pda.ext import commands
 import random
 
-description = '''An example bot to showcase the PDA.ext.commands extension
+description = '''An example bot to showcase the pda.ext.commands extension
 module.
 
 There are a number of utility commands being showcased here.'''
 
-intents = PDA.Intents.default()
+intents = pda.Intents.default()
 intents.members = True
 
 bot = commands.Bot(command_prefix='?', description=description, intents=intents)
@@ -48,7 +48,7 @@ async def repeat(ctx, times: int, content='repeating...'):
         await ctx.send(content)
 
 @bot.command()
-async def joined(ctx, member: PDA.Member):
+async def joined(ctx, member: pda.Member):
     """Says when a member joined."""
     await ctx.send(f'{member.name} joined in {member.joined_at}')
 

@@ -117,7 +117,7 @@ class AssetMixin:
 
 
 class Asset(AssetMixin):
-    """Represents a CDN asset on PDA.
+    """Represents a CDN asset on pda.
 
     .. container:: operations
 

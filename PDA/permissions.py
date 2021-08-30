@@ -366,7 +366,7 @@ class Permissions(BaseFlags):
 
     @flag_value
     def embed_links(self) -> int:
-        """:class:`bool`: Returns ``True`` if a user's messages will automatically be embedded by PDA."""
+        """:class:`bool`: Returns ``True`` if a user's messages will automatically be embedded by pda."""
         return 1 << 14
 
     @flag_value

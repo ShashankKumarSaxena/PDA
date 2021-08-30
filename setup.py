@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
   requirements = f.read().splitlines()
 
 version = ''
-with open('PDA/__init__.py') as f:
+with open('pda/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
 if not version:
@@ -43,22 +43,22 @@ extras_require = {
 }
 
 packages = [
-    'PDA',
-    'PDA.types',
-    'PDA.ui',
-    'PDA.webhook',
-    'PDA.ext.commands',
-    'PDA.ext.tasks',
+    'pda',
+    'pda.types',
+    'pda.ui',
+    'pda.webhook',
+    'pda.ext.commands',
+    'pda.ext.tasks',
 ]
 
-setup(name='PDA',
+setup(name='discord-pda',
       author='SangamBot',
       url='https://github.com/SangamBot/PDA',
       project_urls={
         "Documentation": "https://discordpy.readthedocs.io/en/latest/",
-        "Issue tracker": "https://github.com/SangamBot/PDA/issues",
+        "Issue tracker": "https://github.com/SangamBot/pda/issues",
       },
-      version=version,
+      version="1.0.0a",
       packages=packages,
       license='MIT',
       description='A Python wrapper for the Discord API',

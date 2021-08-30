@@ -1,6 +1,6 @@
-from PDA.ext import commands
+from pda.ext import commands
 
-import PDA
+import pda
 
 
 class Bot(commands.Bot):
@@ -13,7 +13,7 @@ class Bot(commands.Bot):
 
 
 # Define a simple View that gives us a confirmation menu
-class Confirm(PDA.ui.View):
+class Confirm(pda.ui.View):
     def __init__(self):
         super().__init__()
         self.value = None
@@ -21,15 +21,15 @@ class Confirm(PDA.ui.View):
     # When the confirm button is pressed, set the inner value to `True` and
     # stop the View from listening to more input.
     # We also send the user an ephemeral message that we're confirming their choice.
-    @PDA.ui.button(label='Confirm', style=PDA.ButtonStyle.green)
-    async def confirm(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='Confirm', style=pda.ButtonStyle.green)
+    async def confirm(self, button: pda.ui.Button, interaction: pda.Interaction):
         await interaction.response.send_message('Confirming', ephemeral=True)
         self.value = True
         self.stop()
 
     # This one is similar to the confirmation button except sets the inner value to `False`
-    @PDA.ui.button(label='Cancel', style=PDA.ButtonStyle.grey)
-    async def cancel(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='Cancel', style=pda.ButtonStyle.grey)
+    async def cancel(self, button: pda.ui.Button, interaction: pda.Interaction):
         await interaction.response.send_message('Cancelling', ephemeral=True)
         self.value = False
         self.stop()

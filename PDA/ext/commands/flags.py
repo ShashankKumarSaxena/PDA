@@ -32,11 +32,11 @@ from .errors import (
     MissingRequiredFlag,
 )
 
-from PDA.utils import resolve_annotation
+from pda.utils import resolve_annotation
 from .view import StringView
 from .converter import run_converters
 
-from PDA.utils import maybe_coroutine, MISSING
+from pda.utils import maybe_coroutine, MISSING
 from dataclasses import dataclass, field
 from typing import (
     Dict,
@@ -73,7 +73,7 @@ if TYPE_CHECKING:
 class Flag:
     """Represents a flag parameter for :class:`FlagConverter`.
 
-    The :func:`~PDA.ext.commands.flag` function helps
+    The :func:`~pda.ext.commands.flag` function helps
     create these flag objects, but it is not necessary to
     do so. These cannot be constructed manually.
 

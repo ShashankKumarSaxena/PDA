@@ -15,8 +15,8 @@ msgstr ""
 "Generated-By: Babel 2.5.3\n"
 
 #: ../../ext/tasks/index.rst:4
-msgid "``PDA.ext.tasks`` -- asyncio.Task helpers"
-msgstr "``PDA.ext.tasks`` -- asyncio.Task ヘルパー"
+msgid "``pda.ext.tasks`` -- asyncio.Task helpers"
+msgstr "``pda.ext.tasks`` -- asyncio.Task ヘルパー"
 
 #: ../../ext/tasks/index.rst:8
 msgid ""
@@ -39,17 +39,17 @@ msgstr "スリープできる最大時間は何秒ですか？"
 
 #: ../../ext/tasks/index.rst:14
 msgid ""
-"The goal of this PDA.py extension is to abstract all these worries "
+"The goal of this pda.py extension is to abstract all these worries "
 "away from you."
-msgstr "PDA.pyの拡張機能の目的は、こういった苦労の種を抽象化することです。"
+msgstr "pda.pyの拡張機能の目的は、こういった苦労の種を抽象化することです。"
 
 #: ../../ext/tasks/index.rst:17
 msgid "Recipes"
 msgstr "レシピ"
 
 #: ../../ext/tasks/index.rst:19
-msgid "A simple background task in a :class:`~PDA.ext.commands.Cog`:"
-msgstr ":class:`~PDA.ext.commands.Cog` におけるシンプルなバックグラウンドタスク:"
+msgid "A simple background task in a :class:`~pda.ext.commands.Cog`:"
+msgstr ":class:`~pda.ext.commands.Cog` におけるシンプルなバックグラウンドタスク:"
 
 #: ../../ext/tasks/index.rst:38
 msgid "Adding an exception to handle during reconnect:"
@@ -71,301 +71,301 @@ msgstr "キャンセルする場合、その間に何らかの処理を行う:"
 msgid "API Reference"
 msgstr "APIリファレンス"
 
-#: PDA.ext.tasks.Loop:1 of
+#: pda.ext.tasks.Loop:1 of
 msgid ""
 "A background task helper that abstracts the loop and reconnection logic "
 "for you."
 msgstr "ループと再接続処理を抽象化するバックグラウンドタスクのヘルパー。"
 
-#: PDA.ext.tasks.Loop:3 of
+#: pda.ext.tasks.Loop:3 of
 msgid "The main interface to create this is through :func:`loop`."
 msgstr ":func:`loop` はこれを作成するための主要なインタフェースです。"
 
-#: PDA.ext.tasks.Loop.current_loop:1 of
+#: pda.ext.tasks.Loop.current_loop:1 of
 msgid "The current iteration of the loop."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.current_loop PDA.ext.tasks.Loop.next_iteration of
+#: pda.ext.tasks.Loop.current_loop pda.ext.tasks.Loop.next_iteration of
 msgid "type"
 msgstr ""
 
-#: PDA.ext.tasks.Loop.current_loop:3 of
+#: pda.ext.tasks.Loop.current_loop:3 of
 #, fuzzy
 msgid ":class:`int`"
 msgstr ":class:`asyncio.Task`"
 
-#: PDA.ext.tasks.Loop.next_iteration:1 of
+#: pda.ext.tasks.Loop.next_iteration:1 of
 msgid "When the next iteration of the loop will occur."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.next_iteration:5 of
+#: pda.ext.tasks.Loop.next_iteration:5 of
 msgid "Optional[:class:`datetime.datetime`]"
 msgstr ""
 
-#: PDA.ext.tasks.Loop.start:1 of
+#: pda.ext.tasks.Loop.start:1 of
 msgid "Starts the internal task in the event loop."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type PDA.ext.tasks.Loop.after_loop
-#: PDA.ext.tasks.Loop.before_loop PDA.ext.tasks.Loop.change_interval
-#: PDA.ext.tasks.Loop.error PDA.ext.tasks.Loop.remove_exception_type
-#: PDA.ext.tasks.Loop.restart PDA.ext.tasks.Loop.start
-#: PDA.ext.tasks.loop of
+#: pda.ext.tasks.Loop.add_exception_type pda.ext.tasks.Loop.after_loop
+#: pda.ext.tasks.Loop.before_loop pda.ext.tasks.Loop.change_interval
+#: pda.ext.tasks.Loop.error pda.ext.tasks.Loop.remove_exception_type
+#: pda.ext.tasks.Loop.restart pda.ext.tasks.Loop.start
+#: pda.ext.tasks.loop of
 msgid "Parameters"
 msgstr "パラメーター"
 
-#: PDA.ext.tasks.Loop.start:3 of
+#: pda.ext.tasks.Loop.start:3 of
 msgid "The arguments to use."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.restart:9 PDA.ext.tasks.Loop.start:4 of
+#: pda.ext.tasks.Loop.restart:9 pda.ext.tasks.Loop.start:4 of
 msgid "The keyword arguments to use."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type PDA.ext.tasks.Loop.after_loop
-#: PDA.ext.tasks.Loop.before_loop PDA.ext.tasks.Loop.change_interval
-#: PDA.ext.tasks.Loop.error PDA.ext.tasks.Loop.start
-#: PDA.ext.tasks.loop of
+#: pda.ext.tasks.Loop.add_exception_type pda.ext.tasks.Loop.after_loop
+#: pda.ext.tasks.Loop.before_loop pda.ext.tasks.Loop.change_interval
+#: pda.ext.tasks.Loop.error pda.ext.tasks.Loop.start
+#: pda.ext.tasks.loop of
 #, fuzzy
 msgid "Raises"
 msgstr "例外"
 
-#: PDA.ext.tasks.Loop.start:6 of
+#: pda.ext.tasks.Loop.start:6 of
 msgid "A task has already been launched and is running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.remove_exception_type PDA.ext.tasks.Loop.start of
+#: pda.ext.tasks.Loop.remove_exception_type pda.ext.tasks.Loop.start of
 msgid "Returns"
 msgstr "戻り値"
 
-#: PDA.ext.tasks.Loop.start:8 of
+#: pda.ext.tasks.Loop.start:8 of
 msgid "The task that has been created."
 msgstr "タスクが作成されました。"
 
-#: PDA.ext.tasks.Loop.remove_exception_type PDA.ext.tasks.Loop.start of
+#: pda.ext.tasks.Loop.remove_exception_type pda.ext.tasks.Loop.start of
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: PDA.ext.tasks.Loop.start:9 of
+#: pda.ext.tasks.Loop.start:9 of
 msgid ":class:`asyncio.Task`"
 msgstr ":class:`asyncio.Task`"
 
-#: PDA.ext.tasks.Loop.stop:1 of
+#: pda.ext.tasks.Loop.stop:1 of
 msgid "Gracefully stops the task from running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.stop:3 of
+#: pda.ext.tasks.Loop.stop:3 of
 msgid ""
 "Unlike :meth:`cancel`\\, this allows the task to finish its current "
 "iteration before gracefully exiting."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.stop:8 of
+#: pda.ext.tasks.Loop.stop:8 of
 msgid ""
 "If the internal function raises an error that can be handled before "
 "finishing then it will retry until it succeeds."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.stop:12 of
+#: pda.ext.tasks.Loop.stop:12 of
 msgid ""
 "If this is undesirable, either remove the error handling before stopping "
 "via :meth:`clear_exception_types` or use :meth:`cancel` instead."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.cancel:1 of
+#: pda.ext.tasks.Loop.cancel:1 of
 msgid "Cancels the internal task, if it is running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.restart:1 of
+#: pda.ext.tasks.Loop.restart:1 of
 msgid "A convenience method to restart the internal task."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.restart:5 of
+#: pda.ext.tasks.Loop.restart:5 of
 msgid ""
 "Due to the way this function works, the task is not returned like "
 ":meth:`start`."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.restart:8 of
+#: pda.ext.tasks.Loop.restart:8 of
 msgid "The arguments to to use."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type:1 of
+#: pda.ext.tasks.Loop.add_exception_type:1 of
 #, fuzzy
 msgid "Adds exception types to be handled during the reconnect logic."
 msgstr "再接続中に処理する例外を追加します:"
 
-#: PDA.ext.tasks.Loop.add_exception_type:3 of
+#: pda.ext.tasks.Loop.add_exception_type:3 of
 msgid ""
 "By default the exception types handled are those handled by "
-":meth:`PDA.Client.connect`\\, which includes a lot of internet "
+":meth:`pda.Client.connect`\\, which includes a lot of internet "
 "disconnection errors."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type:7 of
+#: pda.ext.tasks.Loop.add_exception_type:7 of
 msgid ""
 "This function is useful if you're interacting with a 3rd party library "
 "that raises its own set of exceptions."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type:10
-#: PDA.ext.tasks.Loop.remove_exception_type:3 of
+#: pda.ext.tasks.Loop.add_exception_type:10
+#: pda.ext.tasks.Loop.remove_exception_type:3 of
 msgid "An argument list of exception classes to handle."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.add_exception_type:13 of
+#: pda.ext.tasks.Loop.add_exception_type:13 of
 msgid ""
 "An exception passed is either not a class or not inherited from "
 ":class:`BaseException`."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.clear_exception_types:1 of
+#: pda.ext.tasks.Loop.clear_exception_types:1 of
 msgid "Removes all exception types that are handled."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.clear_exception_types:5 of
+#: pda.ext.tasks.Loop.clear_exception_types:5 of
 msgid "This operation obviously cannot be undone!"
 msgstr ""
 
-#: PDA.ext.tasks.Loop.remove_exception_type:1 of
+#: pda.ext.tasks.Loop.remove_exception_type:1 of
 #, fuzzy
 msgid "Removes exception types from being handled during the reconnect logic."
 msgstr "再接続中に処理する例外を追加します:"
 
-#: PDA.ext.tasks.Loop.remove_exception_type:6 of
+#: pda.ext.tasks.Loop.remove_exception_type:6 of
 msgid "Whether all exceptions were successfully removed."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.remove_exception_type:7 of
+#: pda.ext.tasks.Loop.remove_exception_type:7 of
 msgid ":class:`bool`"
 msgstr ""
 
-#: PDA.ext.tasks.Loop.get_task:1 of
+#: pda.ext.tasks.Loop.get_task:1 of
 msgid ""
 "Optional[:class:`asyncio.Task`]: Fetches the internal task or ``None`` if"
 " there isn't one running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.is_being_cancelled:1 of
+#: pda.ext.tasks.Loop.is_being_cancelled:1 of
 msgid "Whether the task is being cancelled."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.failed:1 of
+#: pda.ext.tasks.Loop.failed:1 of
 msgid ":class:`bool`: Whether the internal task has failed."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.is_running:1 of
+#: pda.ext.tasks.Loop.is_running:1 of
 msgid ":class:`bool`: Check if the task is currently running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.before_loop:1 of
+#: pda.ext.tasks.Loop.before_loop:1 of
 msgid ""
 "A decorator that registers a coroutine to be called before the loop "
 "starts running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.before_loop:3 of
+#: pda.ext.tasks.Loop.before_loop:3 of
 msgid ""
 "This is useful if you want to wait for some bot state before the loop "
-"starts, such as :meth:`PDA.Client.wait_until_ready`."
+"starts, such as :meth:`pda.Client.wait_until_ready`."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.after_loop:3 PDA.ext.tasks.Loop.before_loop:6 of
+#: pda.ext.tasks.Loop.after_loop:3 pda.ext.tasks.Loop.before_loop:6 of
 msgid "The coroutine must take no arguments (except ``self`` in a class context)."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.before_loop:8 of
+#: pda.ext.tasks.Loop.before_loop:8 of
 msgid "The coroutine to register before the loop runs."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.after_loop:14 PDA.ext.tasks.Loop.before_loop:11
-#: PDA.ext.tasks.Loop.error:13 PDA.ext.tasks.loop:22 of
+#: pda.ext.tasks.Loop.after_loop:14 pda.ext.tasks.Loop.before_loop:11
+#: pda.ext.tasks.Loop.error:13 pda.ext.tasks.loop:22 of
 msgid "The function was not a coroutine."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.after_loop:1 of
+#: pda.ext.tasks.Loop.after_loop:1 of
 msgid ""
 "A decorator that register a coroutine to be called after the loop "
 "finished running."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.after_loop:7 of
+#: pda.ext.tasks.Loop.after_loop:7 of
 msgid ""
 "This coroutine is called even during cancellation. If it is desirable to "
 "tell apart whether something was cancelled or not, check to see whether "
 ":meth:`is_being_cancelled` is ``True`` or not."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.after_loop:11 of
+#: pda.ext.tasks.Loop.after_loop:11 of
 msgid "The coroutine to register after the loop finishes."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.error:1 of
+#: pda.ext.tasks.Loop.error:1 of
 msgid ""
 "A decorator that registers a coroutine to be called if the task "
 "encounters an unhandled exception."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.error:3 of
+#: pda.ext.tasks.Loop.error:3 of
 msgid ""
 "The coroutine must take only one argument the exception raised (except "
 "``self`` in a class context)."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.error:5 of
+#: pda.ext.tasks.Loop.error:5 of
 msgid ""
 "By default this prints to :data:`sys.stderr` however it could be "
 "overridden to have a different implementation."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.error:10 of
+#: pda.ext.tasks.Loop.error:10 of
 msgid "The coroutine to register in the event of an unhandled exception."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:1 of
+#: pda.ext.tasks.Loop.change_interval:1 of
 msgid "Changes the interval for the sleep time."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:5 of
+#: pda.ext.tasks.Loop.change_interval:5 of
 msgid ""
 "This only applies on the next loop iteration. If it is desirable for the "
 "change of interval to be applied right away, cancel the task with "
 ":meth:`cancel`."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:10 PDA.ext.tasks.loop:4 of
+#: pda.ext.tasks.Loop.change_interval:10 pda.ext.tasks.loop:4 of
 msgid "The number of seconds between every iteration."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:12 PDA.ext.tasks.loop:6 of
+#: pda.ext.tasks.Loop.change_interval:12 pda.ext.tasks.loop:6 of
 msgid "The number of minutes between every iteration."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:14 PDA.ext.tasks.loop:8 of
+#: pda.ext.tasks.Loop.change_interval:14 pda.ext.tasks.loop:8 of
 msgid "The number of hours between every iteration."
 msgstr ""
 
-#: PDA.ext.tasks.Loop.change_interval:17 PDA.ext.tasks.loop:21 of
+#: pda.ext.tasks.Loop.change_interval:17 pda.ext.tasks.loop:21 of
 msgid "An invalid value was given."
 msgstr ""
 
-#: PDA.ext.tasks.loop:1 of
+#: pda.ext.tasks.loop:1 of
 msgid ""
 "A decorator that schedules a task in the background for you with optional"
 " reconnect logic. The decorator returns a :class:`Loop`."
 msgstr ""
 
-#: PDA.ext.tasks.loop:10 of
+#: pda.ext.tasks.loop:10 of
 msgid "The number of loops to do, ``None`` if it should be an infinite loop."
 msgstr ""
 
-#: PDA.ext.tasks.loop:13 of
+#: pda.ext.tasks.loop:13 of
 msgid ""
 "Whether to handle errors and restart the task using an exponential back-"
-"off algorithm similar to the one used in :meth:`PDA.Client.connect`."
+"off algorithm similar to the one used in :meth:`pda.Client.connect`."
 msgstr ""
 
-#: PDA.ext.tasks.loop:17 of
+#: pda.ext.tasks.loop:17 of
 msgid ""
 "The loop to use to register the task, if not given defaults to "
 ":func:`asyncio.get_event_loop`."

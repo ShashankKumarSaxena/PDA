@@ -1,6 +1,6 @@
-from PDA.ext import commands
+from pda.ext import commands
 
-import PDA
+import pda
 
 
 class CounterBot(commands.Bot):
@@ -13,17 +13,17 @@ class CounterBot(commands.Bot):
 
 
 # Define a simple View that gives us a counter button
-class Counter(PDA.ui.View):
+class Counter(pda.ui.View):
 
     # Define the actual button
     # When pressed, this increments the number displayed until it hits 5.
     # When it hits 5, the counter button is disabled and it turns green.
     # note: The name of the function does not matter to the library
-    @PDA.ui.button(label='0', style=PDA.ButtonStyle.red)
-    async def count(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='0', style=pda.ButtonStyle.red)
+    async def count(self, button: pda.ui.Button, interaction: pda.Interaction):
         number = int(button.label) if button.label else 0
         if number + 1 >= 5:
-            button.style = PDA.ButtonStyle.green
+            button.style = pda.ButtonStyle.green
             button.disabled = True
         button.label = str(number + 1)
 

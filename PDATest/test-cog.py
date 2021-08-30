@@ -1,4 +1,4 @@
-from PDA.ext import commands
+from pda.ext import commands
 
 class TestCog(commands.Cog):
     def __init__(self, bot):

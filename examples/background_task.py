@@ -1,8 +1,8 @@
-from PDA.ext import tasks
+from pda.ext import tasks
 
-import PDA
+import pda
 
-class MyClient(PDA.Client):
+class MyClient(pda.Client):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

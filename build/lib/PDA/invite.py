@@ -326,7 +326,7 @@ class Invite(Hashable):
         'expires_at',
     )
 
-    BASE = 'https://PDA.gg'
+    BASE = 'https://pda.gg'
 
     def __init__(
         self,

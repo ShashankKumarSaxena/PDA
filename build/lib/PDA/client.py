@@ -110,7 +110,7 @@ def _cleanup_loop(loop: asyncio.AbstractEventLoop) -> None:
         loop.close()
 
 class Client:
-    r"""Represents a client connection that connects to PDA.
+    r"""Represents a client connection that connects to pda.
     This class is used to interact with the Discord WebSocket and API.
 
     A number of options can be passed to the :class:`Client`.
@@ -159,9 +159,9 @@ class Client:
 
         .. versionadded:: 1.5
     status: Optional[:class:`.Status`]
-        A status to start your presence with upon logging on to PDA.
+        A status to start your presence with upon logging on to pda.
     activity: Optional[:class:`.BaseActivity`]
-        An activity to start your presence with upon logging on to PDA.
+        An activity to start your presence with upon logging on to pda.
     allowed_mentions: Optional[:class:`AllowedMentions`]
         Control how the client handles mentions by default on every message sent.
 
@@ -179,7 +179,7 @@ class Client:
     assume_unsync_clock: :class:`bool`
         Whether to assume the system clock is unsynced. This applies to the ratelimit handling
         code. If this is set to ``True``, the default, then the library uses the time to reset
-        a rate limit bucket given by PDA. If this is ``False`` then your system clock is
+        a rate limit bucket given by pda. If this is ``False`` then your system clock is
         used to calculate how long to sleep for. If this is set to ``False`` it is recommended to
         sync your system clock to Google's NTP server.
 
@@ -328,7 +328,7 @@ class Client:
 
         If this is not passed via ``__init__`` then this is retrieved
         through the gateway when an event contains the data. Usually
-        after :func:`~PDA.on_connect` is called.
+        after :func:`~pda.on_connect` is called.
         
         .. versionadded:: 2.0
         """
@@ -336,7 +336,7 @@ class Client:
 
     @property
     def application_flags(self) -> ApplicationFlags:
-        """:class:`~PDA.ApplicationFlags`: The client's application flags.
+        """:class:`~pda.ApplicationFlags`: The client's application flags.
 
         .. versionadded:: 2.0
         """
@@ -360,7 +360,7 @@ class Client:
     def _schedule_event(self, coro: Callable[..., Coroutine[Any, Any, Any]], event_name: str, *args: Any, **kwargs: Any) -> asyncio.Task:
         wrapped = self._run_event(coro, event_name, *args, **kwargs)
         # Schedules the task
-        return asyncio.create_task(wrapped, name=f'PDA.py: {event_name}')
+        return asyncio.create_task(wrapped, name=f'pda.py: {event_name}')
 
     def dispatch(self, event: str, *args: Any, **kwargs: Any) -> None:
         _log.debug('Dispatching event %s', event)
@@ -409,7 +409,7 @@ class Client:
 
         By default this prints to :data:`sys.stderr` however it could be
         overridden to have a different implementation.
-        Check :func:`~PDA.on_error` for more details.
+        Check :func:`~pda.on_error` for more details.
         """
         print(f'Ignoring exception in {event_method}', file=sys.stderr)
         traceback.print_exc()
@@ -477,7 +477,7 @@ class Client:
         """|coro|
 
         Creates a websocket connection and lets the websocket listen
-        to messages from PDA. This is a loop that runs the entire
+        to messages from pda. This is a loop that runs the entire
         event system and miscellaneous aspects of the library. Control
         is not resumed until the WebSocket connection is terminated.
 
@@ -560,7 +560,7 @@ class Client:
     async def close(self) -> None:
         """|coro|
 
-        Closes the connection to PDA.
+        Closes the connection to pda.
         """
         if self._closed:
             return
@@ -691,7 +691,7 @@ class Client:
     @property
     def status(self):
         """:class:`.Status`:
-        The status being used upon logging on to PDA.
+        The status being used upon logging on to pda.
 
         .. versionadded: 2.0
         """
@@ -710,7 +710,7 @@ class Client:
 
     @property
     def allowed_mentions(self) -> Optional[AllowedMentions]:
-        """Optional[:class:`~PDA.AllowedMentions`]: The allowed mention configuration.
+        """Optional[:class:`~pda.AllowedMentions`]: The allowed mention configuration.
 
         .. versionadded:: 1.4
         """
@@ -725,7 +725,7 @@ class Client:
 
     @property
     def intents(self) -> Intents:
-        """:class:`~PDA.Intents`: The intents configured for this connection.
+        """:class:`~pda.Intents`: The intents configured for this connection.
 
         .. versionadded:: 1.5
         """
@@ -735,7 +735,7 @@ class Client:
 
     @property
     def users(self) -> List[User]:
-        """List[:class:`~PDA.User`]: Returns a list of all the users the bot can see."""
+        """List[:class:`~pda.User`]: Returns a list of all the users the bot can see."""
         return list(self._connection._users.values())
 
     def get_channel(self, id: int, /) -> Optional[Union[GuildChannel, Thread, PrivateChannel]]:
@@ -822,7 +822,7 @@ class Client:
 
         Returns
         --------
-        Optional[:class:`~PDA.User`]
+        Optional[:class:`~pda.User`]
             The user or ``None`` if not found.
         """
         return self._connection.get_user(id)
@@ -1059,8 +1059,8 @@ class Client:
 
         .. code-block:: python3
 
-            game = PDA.Game("with the API")
-            await client.change_presence(status=PDA.Status.idle, activity=game)
+            game = pda.Game("with the API")
+            await client.change_presence(status=pda.Status.idle, activity=game)
 
         .. versionchanged:: 2.0
             Removed the ``afk`` keyword-only parameter.
@@ -1168,12 +1168,12 @@ class Client:
     async def fetch_template(self, code: Union[Template, str]) -> Template:
         """|coro|
 
-        Gets a :class:`.Template` from a PDA.new URL or code.
+        Gets a :class:`.Template` from a pda.new URL or code.
 
         Parameters
         -----------
         code: Union[:class:`.Template`, :class:`str`]
-            The Discord Template Code or URL (must be a PDA.new URL).
+            The Discord Template Code or URL (must be a pda.new URL).
 
         Raises
         -------
@@ -1313,7 +1313,7 @@ class Client:
     async def fetch_invite(self, url: Union[Invite, str], *, with_counts: bool = True, with_expiration: bool = True) -> Invite:
         """|coro|
 
-        Gets an :class:`.Invite` from a PDA.gg URL or ID.
+        Gets an :class:`.Invite` from a pda.gg URL or ID.
 
         .. note::
 
@@ -1324,7 +1324,7 @@ class Client:
         Parameters
         -----------
         url: Union[:class:`.Invite`, :class:`str`]
-            The Discord invite ID or URL (must be a PDA.gg URL).
+            The Discord invite ID or URL (must be a pda.gg URL).
         with_counts: :class:`bool`
             Whether to include count information in the invite. This fills the
             :attr:`.Invite.approximate_member_count` and :attr:`.Invite.approximate_presence_count`
@@ -1433,13 +1433,13 @@ class Client:
     async def fetch_user(self, user_id: int, /) -> User:
         """|coro|
 
-        Retrieves a :class:`~PDA.User` based on their ID.
+        Retrieves a :class:`~pda.User` based on their ID.
         You do not have to share any guilds with the user to get this information,
         however many operations do require that you do.
 
         .. note::
 
-            This method is an API call. If you have :attr:`PDA.Intents.members` and member cache enabled, consider :meth:`get_user` instead.
+            This method is an API call. If you have :attr:`pda.Intents.members` and member cache enabled, consider :meth:`get_user` instead.
 
         Parameters
         -----------
@@ -1455,7 +1455,7 @@ class Client:
 
         Returns
         --------
-        :class:`~PDA.User`
+        :class:`~pda.User`
             The user you requested.
         """
         data = await self.http.get_user(user_id)
@@ -1475,7 +1475,7 @@ class Client:
         Raises
         -------
         :exc:`.InvalidData`
-            An unknown channel type was received from PDA.
+            An unknown channel type was received from pda.
         :exc:`.HTTPException`
             Retrieving the channel failed.
         :exc:`.NotFound`
@@ -1583,7 +1583,7 @@ class Client:
 
         Parameters
         -----------
-        user: :class:`~PDA.abc.Snowflake`
+        user: :class:`~pda.abc.Snowflake`
             The user to create a DM with.
 
         Returns
@@ -1600,7 +1600,7 @@ class Client:
         return state.add_dm_channel(data)
 
     def add_view(self, view: View, *, message_id: Optional[int] = None) -> None:
-        """Registers a :class:`~PDA.ui.View` for persistent listening.
+        """Registers a :class:`~pda.ui.View` for persistent listening.
 
         This method should be used for when a view is comprised of components
         that last longer than the lifecycle of the program.
@@ -1609,7 +1609,7 @@ class Client:
 
         Parameters
         ------------
-        view: :class:`PDA.ui.View`
+        view: :class:`pda.ui.View`
             The view to register for dispatching.
         message_id: Optional[:class:`int`]
             The message ID that the view is attached to. This is currently used to

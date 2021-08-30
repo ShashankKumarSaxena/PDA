@@ -2,29 +2,29 @@
 
 import typing
 
-import PDA
-from PDA.ext import commands
+import pda
+from pda.ext import commands
 
-intents = PDA.Intents.default()
+intents = pda.Intents.default()
 intents.members = True
 
 bot = commands.Bot('!', intents=intents)
 
 
 @bot.command()
-async def userinfo(ctx: commands.Context, user: PDA.User):
+async def userinfo(ctx: commands.Context, user: pda.User):
     # In the command signature above, you can see that the `user`
-    # parameter is typehinted to `PDA.User`. This means that
+    # parameter is typehinted to `pda.User`. This means that
     # during command invocation we will attempt to convert
-    # the value passed as `user` to a `PDA.User` instance.
-    # The documentation notes what can be converted, in the case of `PDA.User`
+    # the value passed as `user` to a `pda.User` instance.
+    # The documentation notes what can be converted, in the case of `pda.User`
     # you pass an ID, mention or username (discrim optional)
     # E.g. 80088516616269824, @Danny or Danny#0007
 
     # NOTE: typehinting acts as a converter within the `commands` framework only.
     # In standard Python, it is use for documentation and IDE assistance purposes.
 
-    # If the conversion is successful, we will have a `PDA.User` instance
+    # If the conversion is successful, we will have a `pda.User` instance
     # and can do the following:
     user_id = user.id
     username = user.name
@@ -43,7 +43,7 @@ class ChannelOrMemberConverter(commands.Converter):
     async def convert(self, ctx: commands.Context, argument: str):
         # In this example we have made a custom converter.
         # This checks if an input is convertible to a
-        # `PDA.Member` or `PDA.TextChannel` instance from the
+        # `pda.Member` or `pda.TextChannel` instance from the
         # input the user has given us using the pre-existing converters
         # that the library provides.
 
@@ -84,19 +84,19 @@ async def notify(ctx: commands.Context, target: ChannelOrMemberConverter):
     await target.send(f'Hello, {target.name}!')
 
 @bot.command()
-async def ignore(ctx: commands.Context, target: typing.Union[PDA.Member, PDA.TextChannel]):
+async def ignore(ctx: commands.Context, target: typing.Union[pda.Member, pda.TextChannel]):
     # This command signature utilises the `typing.Union` typehint.
     # The `commands` framework attempts a conversion of each type in this Union *in order*.
-    # So, it will attempt to convert whatever is passed to `target` to a `PDA.Member` instance.
-    # If that fails, it will attempt to convert it to a `PDA.TextChannel` instance.
+    # So, it will attempt to convert whatever is passed to `target` to a `pda.Member` instance.
+    # If that fails, it will attempt to convert it to a `pda.TextChannel` instance.
     # See: https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html#typing-union
     # NOTE: If a Union typehint converter fails it will raise `commands.BadUnionArgument`
     # instead of `commands.BadArgument`.
 
     # To check the resulting type, `isinstance` is used
-    if isinstance(target, PDA.Member):
+    if isinstance(target, pda.Member):
         await ctx.send(f'Member found: {target.mention}, adding them to the ignore list.')
-    elif isinstance(target, PDA.TextChannel): # this could be an `else` but for completeness' sake.
+    elif isinstance(target, pda.TextChannel): # this could be an `else` but for completeness' sake.
         await ctx.send(f'Channel found: {target.mention}, adding it to the ignore list.')
 
 # Built-in type converters.

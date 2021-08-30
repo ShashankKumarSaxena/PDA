@@ -57,7 +57,7 @@ class File:
             To pass binary data, consider usage of ``io.BytesIO``.
 
     filename: Optional[:class:`str`]
-        The filename to display when uploading to PDA.
+        The filename to display when uploading to pda.
         If this is not given then it defaults to ``fp.name`` or if ``fp`` is
         a string then the ``filename`` will default to the string given.
     spoiler: :class:`bool`

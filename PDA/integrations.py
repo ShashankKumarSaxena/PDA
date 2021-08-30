@@ -326,7 +326,7 @@ class IntegrationApplication:
 
 
 class BotIntegration(Integration):
-    """Represents a bot integration on PDA.
+    """Represents a bot integration on pda.
 
     .. versionadded:: 2.0
 

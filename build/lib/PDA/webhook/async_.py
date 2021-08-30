@@ -630,7 +630,7 @@ class WebhookMessage(Message):
     This allows you to edit or delete a message sent by your
     webhook.
 
-    This inherits from :class:`PDA.Message` with changes to
+    This inherits from :class:`pda.Message` with changes to
     :meth:`edit` and :meth:`delete` to work.
 
     .. versionadded:: 1.6
@@ -678,7 +678,7 @@ class WebhookMessage(Message):
         allowed_mentions: :class:`AllowedMentions`
             Controls the mentions being processed in this message.
             See :meth:`.abc.Messageable.send` for more information.
-        view: Optional[:class:`~PDA.ui.View`]
+        view: Optional[:class:`~pda.ui.View`]
             The updated view to update this message with. If ``None`` is passed then
             the view is removed.
 
@@ -1310,14 +1310,14 @@ class Webhook(BaseWebhook):
             Controls the mentions being processed in this message.
 
             .. versionadded:: 1.4
-        view: :class:`PDA.ui.View`
+        view: :class:`pda.ui.View`
             The view to send with the message. You can only send a view
             if this webhook is not partial and has state attached. A
             webhook has state attached if the webhook is managed by the
             library.
 
             .. versionadded:: 2.0
-        thread: :class:`~PDA.abc.Snowflake`
+        thread: :class:`~pda.abc.Snowflake`
             The thread to send this webhook to.
 
             .. versionadded:: 2.0
@@ -1408,7 +1408,7 @@ class Webhook(BaseWebhook):
     async def fetch_message(self, id: int) -> WebhookMessage:
         """|coro|
 
-        Retrieves a single :class:`~PDA.WebhookMessage` owned by this webhook.
+        Retrieves a single :class:`~pda.WebhookMessage` owned by this webhook.
 
         .. versionadded:: 2.0
 
@@ -1419,18 +1419,18 @@ class Webhook(BaseWebhook):
 
         Raises
         --------
-        ~PDA.NotFound
+        ~pda.NotFound
             The specified message was not found.
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have the permissions required to get a message.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Retrieving the message failed.
         InvalidArgument
             There was no token associated with this webhook.
 
         Returns
         --------
-        :class:`~PDA.WebhookMessage`
+        :class:`~pda.WebhookMessage`
             The message asked for.
         """
 
@@ -1493,7 +1493,7 @@ class Webhook(BaseWebhook):
         allowed_mentions: :class:`AllowedMentions`
             Controls the mentions being processed in this message.
             See :meth:`.abc.Messageable.send` for more information.
-        view: Optional[:class:`~PDA.ui.View`]
+        view: Optional[:class:`~pda.ui.View`]
             The updated view to update this message with. If ``None`` is passed then
             the view is removed. The webhook must have state attached, similar to
             :meth:`send`.

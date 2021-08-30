@@ -26,7 +26,7 @@ import argparse
 import sys
 from pathlib import Path
 
-import PDA
+import pda
 import pkg_resources
 import aiohttp
 import platform
@@ -39,12 +39,12 @@ def show_version():
     ]
 
 
-    version_info = PDA.version_info
-    entries.append('- PDA.py v{0.major}.{0.minor}.{0.micro}-{0.releaselevel}'.format(version_info))
+    version_info = pda.version_info
+    entries.append('- pda.py v{0.major}.{0.minor}.{0.micro}-{0.releaselevel}'.format(version_info))
     if version_info.releaselevel != 'final':
-        pkg = pkg_resources.get_distribution('PDA.py')
+        pkg = pkg_resources.get_distribution('pda.py')
         if pkg:
-            entries.append(f'    - PDA.py pkg_resources: v{pkg.version}')
+            entries.append(f'    - pda.py pkg_resources: v{pkg.version}')
 
     entries.append(f'- aiohttp v{aiohttp.__version__}')
     uname = platform.uname()
@@ -57,8 +57,8 @@ def core(parser, args):
 
 _bot_template = """#!/usr/bin/env python3
 
-from PDA.ext import commands
-import PDA
+from pda.ext import commands
+import pda
 import config
 
 class Bot(commands.{base}):
@@ -111,8 +111,8 @@ var/
 config.py
 """
 
-_cog_template = '''from PDA.ext import commands
-import PDA
+_cog_template = '''from pda.ext import commands
+import pda
 
 class {name}(commands.Cog{attrs}):
     """The description for {name} goes here."""
@@ -287,7 +287,7 @@ def add_newcog_args(subparser):
     parser.add_argument('--full', help='add all special methods as well', action='store_true')
 
 def parse_args():
-    parser = argparse.ArgumentParser(prog='discord', description='Tools for helping with PDA.py')
+    parser = argparse.ArgumentParser(prog='discord', description='Tools for helping with pda.py')
     parser.add_argument('-v', '--version', action='store_true', help='shows the library version')
     parser.set_defaults(func=core)
 

@@ -130,11 +130,11 @@ class User(Snowflake, Protocol):
 
     The following implement this ABC:
 
-    - :class:`~PDA.User`
-    - :class:`~PDA.ClientUser`
-    - :class:`~PDA.Member`
+    - :class:`~pda.User`
+    - :class:`~pda.ClientUser`
+    - :class:`~pda.Member`
 
-    This ABC must also implement :class:`~PDA.abc.Snowflake`.
+    This ABC must also implement :class:`~pda.abc.Snowflake`.
 
     Attributes
     -----------
@@ -142,7 +142,7 @@ class User(Snowflake, Protocol):
         The user's username.
     discriminator: :class:`str`
         The user's discriminator.
-    avatar: :class:`~PDA.Asset`
+    avatar: :class:`~pda.Asset`
         The avatar asset the user has.
     bot: :class:`bool`
         If the user is a bot account.
@@ -172,14 +172,14 @@ class PrivateChannel(Snowflake, Protocol):
 
     The following implement this ABC:
 
-    - :class:`~PDA.DMChannel`
-    - :class:`~PDA.GroupChannel`
+    - :class:`~pda.DMChannel`
+    - :class:`~pda.GroupChannel`
 
-    This ABC must also implement :class:`~PDA.abc.Snowflake`.
+    This ABC must also implement :class:`~pda.abc.Snowflake`.
 
     Attributes
     -----------
-    me: :class:`~PDA.ClientUser`
+    me: :class:`~pda.ClientUser`
         The user presenting yourself.
     """
 
@@ -223,18 +223,18 @@ class GuildChannel:
 
     The following implement this ABC:
 
-    - :class:`~PDA.TextChannel`
-    - :class:`~PDA.VoiceChannel`
-    - :class:`~PDA.CategoryChannel`
-    - :class:`~PDA.StageChannel`
+    - :class:`~pda.TextChannel`
+    - :class:`~pda.VoiceChannel`
+    - :class:`~pda.CategoryChannel`
+    - :class:`~pda.StageChannel`
 
-    This ABC must also implement :class:`~PDA.abc.Snowflake`.
+    This ABC must also implement :class:`~pda.abc.Snowflake`.
 
     Attributes
     -----------
     name: :class:`str`
         The channel name.
-    guild: :class:`~PDA.Guild`
+    guild: :class:`~pda.Guild`
         The guild the channel belongs to.
     position: :class:`int`
         The position in the channel list. This is a number that starts at 0.
@@ -412,8 +412,8 @@ class GuildChannel:
 
     @property
     def changed_roles(self) -> List[Role]:
-        """List[:class:`~PDA.Role`]: Returns a list of roles that have been overridden from
-        their default values in the :attr:`~PDA.Guild.roles` attribute."""
+        """List[:class:`~pda.Role`]: Returns a list of roles that have been overridden from
+        their default values in the :attr:`~pda.Guild.roles` attribute."""
         ret = []
         g = self.guild
         for overwrite in filter(lambda o: o.is_role(), self._overwrites):
@@ -441,13 +441,13 @@ class GuildChannel:
 
         Parameters
         -----------
-        obj: Union[:class:`~PDA.Role`, :class:`~PDA.abc.User`]
+        obj: Union[:class:`~pda.Role`, :class:`~pda.abc.User`]
             The role or user denoting
             whose overwrite to get.
 
         Returns
         ---------
-        :class:`~PDA.PermissionOverwrite`
+        :class:`~pda.PermissionOverwrite`
             The permission overwrites for this object.
         """
 
@@ -471,12 +471,12 @@ class GuildChannel:
         """Returns all of the channel's overwrites.
 
         This is returned as a dictionary where the key contains the target which
-        can be either a :class:`~PDA.Role` or a :class:`~PDA.Member` and the value is the
-        overwrite as a :class:`~PDA.PermissionOverwrite`.
+        can be either a :class:`~pda.Role` or a :class:`~pda.Member` and the value is the
+        overwrite as a :class:`~pda.PermissionOverwrite`.
 
         Returns
         --------
-        Dict[Union[:class:`~PDA.Role`, :class:`~PDA.Member`], :class:`~PDA.PermissionOverwrite`]
+        Dict[Union[:class:`~pda.Role`, :class:`~pda.Member`], :class:`~pda.PermissionOverwrite`]
             The channel's permission overwrites.
         """
         ret = {}
@@ -494,7 +494,7 @@ class GuildChannel:
             # TODO: There is potential data loss here in the non-chunked
             # case, i.e. target is None because get_member returned nothing.
             # This can be fixed with a slight breaking change to the return type,
-            # i.e. adding PDA.Object to the list of it
+            # i.e. adding pda.Object to the list of it
             # However, for now this is an acceptable compromise.
             if target is not None:
                 ret[target] = overwrite
@@ -502,7 +502,7 @@ class GuildChannel:
 
     @property
     def category(self) -> Optional[CategoryChannel]:
-        """Optional[:class:`~PDA.CategoryChannel`]: The category this channel belongs to.
+        """Optional[:class:`~pda.CategoryChannel`]: The category this channel belongs to.
 
         If there is no category then this is ``None``.
         """
@@ -524,8 +524,8 @@ class GuildChannel:
         return bool(category and category.overwrites == self.overwrites)
 
     def permissions_for(self, obj: Union[Member, Role], /) -> Permissions:
-        """Handles permission resolution for the :class:`~PDA.Member`
-        or :class:`~PDA.Role`.
+        """Handles permission resolution for the :class:`~pda.Member`
+        or :class:`~pda.Role`.
 
         This function takes into consideration the following cases:
 
@@ -534,7 +534,7 @@ class GuildChannel:
         - Channel overrides
         - Member overrides
 
-        If a :class:`~PDA.Role` is passed, then it checks the permissions
+        If a :class:`~pda.Role` is passed, then it checks the permissions
         someone with that role would have, which is essentially:
 
         - The default role permissions
@@ -547,14 +547,14 @@ class GuildChannel:
 
         Parameters
         ----------
-        obj: Union[:class:`~PDA.Member`, :class:`~PDA.Role`]
+        obj: Union[:class:`~pda.Member`, :class:`~pda.Role`]
             The object to resolve permissions for. This could be either
             a member or a role. If it's a role then member overwrites
             are not computed.
 
         Returns
         -------
-        :class:`~PDA.Permissions`
+        :class:`~pda.Permissions`
             The resolved permissions for the member or role.
         """
 
@@ -664,7 +664,7 @@ class GuildChannel:
 
         Deletes the channel.
 
-        You must have :attr:`~PDA.Permissions.manage_channels` permission to use this.
+        You must have :attr:`~pda.Permissions.manage_channels` permission to use this.
 
         Parameters
         -----------
@@ -674,11 +674,11 @@ class GuildChannel:
 
         Raises
         -------
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have proper permissions to delete the channel.
-        ~PDA.NotFound
+        ~pda.NotFound
             The channel was not found or was already deleted.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Deleting the channel failed.
         """
         await self._state.http.delete_channel(self.id, reason=reason)
@@ -709,19 +709,19 @@ class GuildChannel:
         Sets the channel specific permission overwrites for a target in the
         channel.
 
-        The ``target`` parameter should either be a :class:`~PDA.Member` or a
-        :class:`~PDA.Role` that belongs to guild.
+        The ``target`` parameter should either be a :class:`~pda.Member` or a
+        :class:`~pda.Role` that belongs to guild.
 
         The ``overwrite`` parameter, if given, must either be ``None`` or
-        :class:`~PDA.PermissionOverwrite`. For convenience, you can pass in
-        keyword arguments denoting :class:`~PDA.Permissions` attributes. If this is
+        :class:`~pda.PermissionOverwrite`. For convenience, you can pass in
+        keyword arguments denoting :class:`~pda.Permissions` attributes. If this is
         done, then you cannot mix the keyword arguments with the ``overwrite``
         parameter.
 
         If the ``overwrite`` parameter is ``None``, then the permission
         overwrites are deleted.
 
-        You must have the :attr:`~PDA.Permissions.manage_roles` permission to use this.
+        You must have the :attr:`~pda.Permissions.manage_roles` permission to use this.
 
         .. note::
 
@@ -739,18 +739,18 @@ class GuildChannel:
 
             await channel.set_permissions(member, overwrite=None)
 
-        Using :class:`~PDA.PermissionOverwrite` ::
+        Using :class:`~pda.PermissionOverwrite` ::
 
-            overwrite = PDA.PermissionOverwrite()
+            overwrite = pda.PermissionOverwrite()
             overwrite.send_messages = False
             overwrite.read_messages = True
             await channel.set_permissions(member, overwrite=overwrite)
 
         Parameters
         -----------
-        target: Union[:class:`~PDA.Member`, :class:`~PDA.Role`]
+        target: Union[:class:`~pda.Member`, :class:`~pda.Role`]
             The member or role to overwrite permissions for.
-        overwrite: Optional[:class:`~PDA.PermissionOverwrite`]
+        overwrite: Optional[:class:`~pda.PermissionOverwrite`]
             The permissions to allow and deny to the target, or ``None`` to
             delete the overwrite.
         \*\*permissions
@@ -761,15 +761,15 @@ class GuildChannel:
 
         Raises
         -------
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have permissions to edit channel specific permissions.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Editing channel specific permissions failed.
-        ~PDA.NotFound
+        ~pda.NotFound
             The role or member being edited is not part of the guild.
-        ~PDA.InvalidArgument
+        ~pda.InvalidArgument
             The overwrite parameter invalid or the target type was not
-            :class:`~PDA.Role` or :class:`~PDA.Member`.
+            :class:`~pda.Role` or :class:`~pda.Member`.
         """
 
         http = self._state.http
@@ -827,7 +827,7 @@ class GuildChannel:
         Clones this channel. This creates a channel with the same properties
         as this channel.
 
-        You must have the :attr:`~PDA.Permissions.manage_channels` permission to
+        You must have the :attr:`~pda.Permissions.manage_channels` permission to
         do this.
 
         .. versionadded:: 1.1
@@ -842,9 +842,9 @@ class GuildChannel:
 
         Raises
         -------
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have the proper permissions to create this channel.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Creating the channel failed.
 
         Returns
@@ -909,7 +909,7 @@ class GuildChannel:
 
         If exact position movement is required, ``edit`` should be used instead.
 
-        You must have the :attr:`~PDA.Permissions.manage_channels` permission to
+        You must have the :attr:`~pda.Permissions.manage_channels` permission to
         do this.
 
         .. note::
@@ -929,10 +929,10 @@ class GuildChannel:
             Whether to move the channel to the end of the
             channel list (or category if given).
             This is mutually exclusive with ``beginning``, ``before``, and ``after``.
-        before: :class:`~PDA.abc.Snowflake`
+        before: :class:`~pda.abc.Snowflake`
             The channel that should be before our current channel.
             This is mutually exclusive with ``beginning``, ``end``, and ``after``.
-        after: :class:`~PDA.abc.Snowflake`
+        after: :class:`~pda.abc.Snowflake`
             The channel that should be after our current channel.
             This is mutually exclusive with ``beginning``, ``end``, and ``before``.
         offset: :class:`int`
@@ -942,7 +942,7 @@ class GuildChannel:
             while a negative number moves it above. Note that this
             number is relative and computed after the ``beginning``,
             ``end``, ``before``, and ``after`` parameters.
-        category: Optional[:class:`~PDA.abc.Snowflake`]
+        category: Optional[:class:`~pda.abc.Snowflake`]
             The category to move this channel under.
             If ``None`` is given then it moves it out of the category.
             This parameter is ignored if moving a category channel.
@@ -1041,7 +1041,7 @@ class GuildChannel:
 
         Creates an instant invite from a text or voice channel.
 
-        You must have the :attr:`~PDA.Permissions.create_instant_invite` permission to
+        You must have the :attr:`~pda.Permissions.create_instant_invite` permission to
         do this.
 
         Parameters
@@ -1078,15 +1078,15 @@ class GuildChannel:
 
         Raises
         -------
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Invite creation failed.
 
-        ~PDA.NotFound
+        ~pda.NotFound
             The channel that was passed is a category or an invalid channel.
 
         Returns
         --------
-        :class:`~PDA.Invite`
+        :class:`~pda.Invite`
             The invite that was created.
         """
 
@@ -1108,18 +1108,18 @@ class GuildChannel:
 
         Returns a list of all active instant invites from this channel.
 
-        You must have :attr:`~PDA.Permissions.manage_channels` to get this information.
+        You must have :attr:`~pda.Permissions.manage_channels` to get this information.
 
         Raises
         -------
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have proper permissions to get the information.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             An error occurred while fetching the information.
 
         Returns
         -------
-        List[:class:`~PDA.Invite`]
+        List[:class:`~pda.Invite`]
             The list of invites that are currently active.
         """
 
@@ -1134,13 +1134,13 @@ class Messageable:
 
     The following implement this ABC:
 
-    - :class:`~PDA.TextChannel`
-    - :class:`~PDA.DMChannel`
-    - :class:`~PDA.GroupChannel`
-    - :class:`~PDA.User`
-    - :class:`~PDA.Member`
-    - :class:`~PDA.ext.commands.Context`
-    - :class:`~PDA.Thread`
+    - :class:`~pda.TextChannel`
+    - :class:`~pda.DMChannel`
+    - :class:`~pda.GroupChannel`
+    - :class:`~pda.User`
+    - :class:`~pda.Member`
+    - :class:`~pda.ext.commands.Context`
+    - :class:`~pda.Thread`
     """
 
     __slots__ = ()
@@ -1247,13 +1247,13 @@ class Messageable:
         be provided.
 
         To upload a single file, the ``file`` parameter should be used with a
-        single :class:`~PDA.File` object. To upload multiple files, the ``files``
-        parameter should be used with a :class:`list` of :class:`~PDA.File` objects.
+        single :class:`~pda.File` object. To upload multiple files, the ``files``
+        parameter should be used with a :class:`list` of :class:`~pda.File` objects.
         **Specifying both parameters will lead to an exception**.
 
         To upload a single embed, the ``embed`` parameter should be used with a
-        single :class:`~PDA.Embed` object. To upload multiple embeds, the ``embeds``
-        parameter should be used with a :class:`list` of :class:`~PDA.Embed` objects.
+        single :class:`~pda.Embed` object. To upload multiple embeds, the ``embeds``
+        parameter should be used with a :class:`list` of :class:`~pda.Embed` objects.
         **Specifying both parameters will lead to an exception**.
 
         Parameters
@@ -1262,11 +1262,11 @@ class Messageable:
             The content of the message to send.
         tts: :class:`bool`
             Indicates if the message should be sent using text-to-speech.
-        embed: :class:`~PDA.Embed`
+        embed: :class:`~pda.Embed`
             The rich embed for the content.
-        file: :class:`~PDA.File`
+        file: :class:`~pda.File`
             The file to upload.
-        files: List[:class:`~PDA.File`]
+        files: List[:class:`~pda.File`]
             A list of files to upload. Must be a maximum of 10.
         nonce: :class:`int`
             The nonce to use for sending this message. If the message was successfully sent,
@@ -1275,55 +1275,55 @@ class Messageable:
             If provided, the number of seconds to wait in the background
             before deleting the message we just sent. If the deletion fails,
             then it is silently ignored.
-        allowed_mentions: :class:`~PDA.AllowedMentions`
+        allowed_mentions: :class:`~pda.AllowedMentions`
             Controls the mentions being processed in this message. If this is
-            passed, then the object is merged with :attr:`~PDA.Client.allowed_mentions`.
+            passed, then the object is merged with :attr:`~pda.Client.allowed_mentions`.
             The merging behaviour only overrides attributes that have been explicitly passed
-            to the object, otherwise it uses the attributes set in :attr:`~PDA.Client.allowed_mentions`.
-            If no object is passed at all then the defaults given by :attr:`~PDA.Client.allowed_mentions`
+            to the object, otherwise it uses the attributes set in :attr:`~pda.Client.allowed_mentions`.
+            If no object is passed at all then the defaults given by :attr:`~pda.Client.allowed_mentions`
             are used instead.
 
             .. versionadded:: 1.4
 
-        reference: Union[:class:`~PDA.Message`, :class:`~PDA.MessageReference`, :class:`~PDA.PartialMessage`]
-            A reference to the :class:`~PDA.Message` to which you are replying, this can be created using
-            :meth:`~PDA.Message.to_reference` or passed directly as a :class:`~PDA.Message`. You can control
-            whether this mentions the author of the referenced message using the :attr:`~PDA.AllowedMentions.replied_user`
+        reference: Union[:class:`~pda.Message`, :class:`~pda.MessageReference`, :class:`~pda.PartialMessage`]
+            A reference to the :class:`~pda.Message` to which you are replying, this can be created using
+            :meth:`~pda.Message.to_reference` or passed directly as a :class:`~pda.Message`. You can control
+            whether this mentions the author of the referenced message using the :attr:`~pda.AllowedMentions.replied_user`
             attribute of ``allowed_mentions`` or by setting ``mention_author``.
 
             .. versionadded:: 1.6
 
         mention_author: Optional[:class:`bool`]
-            If set, overrides the :attr:`~PDA.AllowedMentions.replied_user` attribute of ``allowed_mentions``.
+            If set, overrides the :attr:`~pda.AllowedMentions.replied_user` attribute of ``allowed_mentions``.
 
             .. versionadded:: 1.6
-        view: :class:`PDA.ui.View`
+        view: :class:`pda.ui.View`
             A Discord UI View to add to the message.
-        embeds: List[:class:`~PDA.Embed`]
+        embeds: List[:class:`~pda.Embed`]
             A list of embeds to upload. Must be a maximum of 10.
 
             .. versionadded:: 2.0
-        stickers: Sequence[Union[:class:`~PDA.GuildSticker`, :class:`~PDA.StickerItem`]]
+        stickers: Sequence[Union[:class:`~pda.GuildSticker`, :class:`~pda.StickerItem`]]
             A list of stickers to upload. Must be a maximum of 3.
 
             .. versionadded:: 2.0
 
         Raises
         --------
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Sending the message failed.
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have the proper permissions to send the message.
-        ~PDA.InvalidArgument
+        ~pda.InvalidArgument
             The ``files`` list is not of the appropriate size,
             you specified both ``file`` and ``files``,
             or you specified both ``embed`` and ``embeds``,
-            or the ``reference`` object is not a :class:`~PDA.Message`,
-            :class:`~PDA.MessageReference` or :class:`~PDA.PartialMessage`.
+            or the ``reference`` object is not a :class:`~pda.Message`,
+            :class:`~pda.MessageReference` or :class:`~pda.PartialMessage`.
 
         Returns
         ---------
-        :class:`~PDA.Message`
+        :class:`~pda.Message`
             The message that was sent.
         """
 
@@ -1475,7 +1475,7 @@ class Messageable:
     async def fetch_message(self, id: int, /) -> Message:
         """|coro|
 
-        Retrieves a single :class:`~PDA.Message` from the destination.
+        Retrieves a single :class:`~pda.Message` from the destination.
 
         Parameters
         ------------
@@ -1484,16 +1484,16 @@ class Messageable:
 
         Raises
         --------
-        ~PDA.NotFound
+        ~pda.NotFound
             The specified message was not found.
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have the permissions required to get a message.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Retrieving the message failed.
 
         Returns
         --------
-        :class:`~PDA.Message`
+        :class:`~pda.Message`
             The message asked for.
         """
 
@@ -1514,12 +1514,12 @@ class Messageable:
 
         Raises
         -------
-        ~PDA.HTTPException
+        ~pda.HTTPException
             Retrieving the pinned messages failed.
 
         Returns
         --------
-        List[:class:`~PDA.Message`]
+        List[:class:`~pda.Message`]
             The messages that are currently pinned.
         """
 
@@ -1537,9 +1537,9 @@ class Messageable:
         around: Optional[SnowflakeTime] = None,
         oldest_first: Optional[bool] = None,
     ) -> HistoryIterator:
-        """Returns an :class:`~PDA.AsyncIterator` that enables receiving the destination's message history.
+        """Returns an :class:`~pda.AsyncIterator` that enables receiving the destination's message history.
 
-        You must have :attr:`~PDA.Permissions.read_message_history` permissions to use this.
+        You must have :attr:`~pda.Permissions.read_message_history` permissions to use this.
 
         Examples
         ---------
@@ -1564,15 +1564,15 @@ class Messageable:
             The number of messages to retrieve.
             If ``None``, retrieves every message in the channel. Note, however,
             that this would make it a slow operation.
-        before: Optional[Union[:class:`~PDA.abc.Snowflake`, :class:`datetime.datetime`]]
+        before: Optional[Union[:class:`~pda.abc.Snowflake`, :class:`datetime.datetime`]]
             Retrieve messages before this date or message.
             If a datetime is provided, it is recommended to use a UTC aware datetime.
             If the datetime is naive, it is assumed to be local time.
-        after: Optional[Union[:class:`~PDA.abc.Snowflake`, :class:`datetime.datetime`]]
+        after: Optional[Union[:class:`~pda.abc.Snowflake`, :class:`datetime.datetime`]]
             Retrieve messages after this date or message.
             If a datetime is provided, it is recommended to use a UTC aware datetime.
             If the datetime is naive, it is assumed to be local time.
-        around: Optional[Union[:class:`~PDA.abc.Snowflake`, :class:`datetime.datetime`]]
+        around: Optional[Union[:class:`~pda.abc.Snowflake`, :class:`datetime.datetime`]]
             Retrieve messages around this date or message.
             If a datetime is provided, it is recommended to use a UTC aware datetime.
             If the datetime is naive, it is assumed to be local time.
@@ -1584,14 +1584,14 @@ class Messageable:
 
         Raises
         ------
-        ~PDA.Forbidden
+        ~pda.Forbidden
             You do not have permissions to get channel message history.
-        ~PDA.HTTPException
+        ~pda.HTTPException
             The request to get message history failed.
 
         Yields
         -------
-        :class:`~PDA.Message`
+        :class:`~pda.Message`
             The message with the message data parsed.
         """
         return HistoryIterator(self, limit=limit, before=before, after=after, around=around, oldest_first=oldest_first)
@@ -1603,8 +1603,8 @@ class Connectable(Protocol):
 
     The following implement this ABC:
 
-    - :class:`~PDA.VoiceChannel`
-    - :class:`~PDA.StageChannel`
+    - :class:`~pda.VoiceChannel`
+    - :class:`~pda.StageChannel`
 
     Note
     ----
@@ -1644,21 +1644,21 @@ class Connectable(Protocol):
             a reconnect if a part of the handshake fails
             or the gateway goes down.
         cls: Type[:class:`VoiceProtocol`]
-            A type that subclasses :class:`~PDA.VoiceProtocol` to connect with.
-            Defaults to :class:`~PDA.VoiceClient`.
+            A type that subclasses :class:`~pda.VoiceProtocol` to connect with.
+            Defaults to :class:`~pda.VoiceClient`.
 
         Raises
         -------
         asyncio.TimeoutError
             Could not connect to the voice channel in time.
-        ~PDA.ClientException
+        ~pda.ClientException
             You are already connected to a voice channel.
-        ~PDA.opus.OpusNotLoaded
+        ~pda.opus.OpusNotLoaded
             The opus library has not been loaded.
 
         Returns
         --------
-        :class:`~PDA.VoiceProtocol`
+        :class:`~pda.VoiceProtocol`
             A voice client that is fully connected to the voice server.
         """
 

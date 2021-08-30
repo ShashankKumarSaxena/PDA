@@ -76,7 +76,7 @@ class Select(Item[V]):
     max_values: :class:`int`
         The maximum number of items that must be chosen for this select menu.
         Defaults to 1 and must be between 1 and 25.
-    options: List[:class:`PDA.SelectOption`]
+    options: List[:class:`pda.SelectOption`]
         A list of options that can be selected in this menu.
     disabled: :class:`bool`
         Whether the select is disabled or not.
@@ -167,7 +167,7 @@ class Select(Item[V]):
 
     @property
     def options(self) -> List[SelectOption]:
-        """List[:class:`PDA.SelectOption`]: A list of options that can be selected in this menu."""
+        """List[:class:`pda.SelectOption`]: A list of options that can be selected in this menu."""
         return self._underlying.options
 
     @options.setter
@@ -190,7 +190,7 @@ class Select(Item[V]):
     ):
         """Adds an option to the select menu.
 
-        To append a pre-existing :class:`PDA.SelectOption` use the
+        To append a pre-existing :class:`pda.SelectOption` use the
         :meth:`append_option` method instead.
 
         Parameters
@@ -232,7 +232,7 @@ class Select(Item[V]):
 
         Parameters
         -----------
-        option: :class:`PDA.SelectOption`
+        option: :class:`pda.SelectOption`
             The option to append to the select menu.
 
         Raises
@@ -307,8 +307,8 @@ def select(
     """A decorator that attaches a select menu to a component.
 
     The function being decorated should have three parameters, ``self`` representing
-    the :class:`PDA.ui.View`, the :class:`PDA.ui.Select` being pressed and
-    the :class:`PDA.Interaction` you receive.
+    the :class:`pda.ui.View`, the :class:`pda.ui.Select` being pressed and
+    the :class:`pda.Interaction` you receive.
 
     In order to get the selected items that the user has chosen within the callback
     use :attr:`Select.values`.
@@ -332,7 +332,7 @@ def select(
     max_values: :class:`int`
         The maximum number of items that must be chosen for this select menu.
         Defaults to 1 and must be between 1 and 25.
-    options: List[:class:`PDA.SelectOption`]
+    options: List[:class:`pda.SelectOption`]
         A list of options that can be selected in this menu.
     disabled: :class:`bool`
         Whether the select is disabled or not. Defaults to ``False``.

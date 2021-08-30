@@ -46,7 +46,7 @@ __all__ = (
 
 
 class Team:
-    """Represents an application team for a bot provided by PDA.
+    """Represents an application team for a bot provided by pda.
 
     Attributes
     -------------

@@ -28,20 +28,20 @@ import re
 
 from typing import Any, Dict, Generic, List, Optional, TYPE_CHECKING, TypeVar, Union
 
-import PDA.abc
-import PDA.utils
+import pda.abc
+import pda.utils
 
-from PDA.message import Message
+from pda.message import Message
 
 if TYPE_CHECKING:
     from typing_extensions import ParamSpec
 
-    from PDA.abc import MessageableChannel
-    from PDA.guild import Guild
-    from PDA.member import Member
-    from PDA.state import ConnectionState
-    from PDA.user import ClientUser, User
-    from PDA.voice_client import VoiceProtocol
+    from pda.abc import MessageableChannel
+    from pda.guild import Guild
+    from pda.member import Member
+    from pda.state import ConnectionState
+    from pda.user import ClientUser, User
+    from pda.voice_client import VoiceProtocol
 
     from .bot import Bot, AutoShardedBot
     from .cog import Cog
@@ -53,7 +53,7 @@ __all__ = (
     'Context',
 )
 
-MISSING: Any = PDA.utils.MISSING
+MISSING: Any = pda.utils.MISSING
 
 
 T = TypeVar('T')
@@ -66,14 +66,14 @@ else:
     P = TypeVar('P')
 
 
-class Context(PDA.abc.Messageable, Generic[BotT]):
+class Context(pda.abc.Messageable, Generic[BotT]):
     r"""Represents the context in which a command is being invoked under.
 
     This class contains a lot of meta data to help you understand more about
     the invocation context. This class is not created manually and is instead
     passed around to commands as the first parameter.
 
-    This class implements the :class:`~PDA.abc.Messageable` ABC.
+    This class implements the :class:`~pda.abc.Messageable` ABC.
 
     Attributes
     -----------
@@ -253,7 +253,7 @@ class Context(PDA.abc.Messageable, Generic[BotT]):
         """:class:`bool`: Checks if the invocation context is valid to be invoked with."""
         return self.prefix is not None and self.command is not None
 
-    async def _get_channel(self) -> PDA.abc.Messageable:
+    async def _get_channel(self) -> pda.abc.Messageable:
         return self.channel
 
     @property
@@ -281,26 +281,26 @@ class Context(PDA.abc.Messageable, Generic[BotT]):
             return None
         return self.command.cog
 
-    @PDA.utils.cached_property
+    @pda.utils.cached_property
     def guild(self) -> Optional[Guild]:
         """Optional[:class:`.Guild`]: Returns the guild associated with this context's command. None if not available."""
         return self.message.guild
 
-    @PDA.utils.cached_property
+    @pda.utils.cached_property
     def channel(self) -> MessageableChannel:
         """Union[:class:`.abc.Messageable`]: Returns the channel associated with this context's command.
         Shorthand for :attr:`.Message.channel`.
         """
         return self.message.channel
 
-    @PDA.utils.cached_property
+    @pda.utils.cached_property
     def author(self) -> Union[User, Member]:
-        """Union[:class:`~PDA.User`, :class:`.Member`]:
+        """Union[:class:`~pda.User`, :class:`.Member`]:
         Returns the author associated with this context's command. Shorthand for :attr:`.Message.author`
         """
         return self.message.author
 
-    @PDA.utils.cached_property
+    @pda.utils.cached_property
     def me(self) -> Union[Member, ClientUser]:
         """Union[:class:`.Member`, :class:`.ClientUser`]:
         Similar to :attr:`.Guild.me` except it may return the :class:`.ClientUser` in private message contexts.
@@ -395,6 +395,6 @@ class Context(PDA.abc.Messageable, Generic[BotT]):
         except CommandError as e:
             await cmd.on_help_command_error(self, e)
 
-    @PDA.utils.copy_doc(Message.reply)
+    @pda.utils.copy_doc(Message.reply)
     async def reply(self, content: Optional[str] = None, **kwargs: Any) -> Message:
         return await self.message.reply(content, **kwargs)

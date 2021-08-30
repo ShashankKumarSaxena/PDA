@@ -445,7 +445,7 @@ class AutoShardedClient(Client):
     async def close(self) -> None:
         """|coro|
 
-        Closes the connection to PDA.
+        Closes the connection to pda.
         """
         if self.is_closed():
             return
@@ -478,8 +478,8 @@ class AutoShardedClient(Client):
 
         Example: ::
 
-            game = PDA.Game("with the API")
-            await client.change_presence(status=PDA.Status.idle, activity=game)
+            game = pda.Game("with the API")
+            await client.change_presence(status=pda.Status.idle, activity=game)
 
         .. versionchanged:: 2.0
             Removed the ``afk`` keyword-only parameter.

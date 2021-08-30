@@ -93,4 +93,4 @@ If you want to invite your bot you must create an invite URL for it.
     The person adding the bot needs "Manage Server" permissions to do so.
 
 If you want to generate this URL dynamically at run-time inside your bot and using the
-:class:`PDA.Permissions` interface, you can use :func:`PDA.utils.oauth_url`.
+:class:`pda.Permissions` interface, you can use :func:`pda.utils.oauth_url`.

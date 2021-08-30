@@ -67,7 +67,7 @@ class EmbedProxy:
 E = TypeVar('E', bound='Embed')
 
 if TYPE_CHECKING:
-    from PDA.types.embed import Embed as EmbedData, EmbedType
+    from pda.types.embed import Embed as EmbedData, EmbedType
 
     T = TypeVar('T')
     MaybeEmpty = Union[T, _EmptyEmbed]
@@ -315,7 +315,7 @@ class Embed:
         elif isinstance(value, int):
             self._colour = Colour(value=value)
         else:
-            raise TypeError(f'Expected PDA.Colour, int, or Embed.Empty but received {value.__class__.__name__} instead.')
+            raise TypeError(f'Expected pda.Colour, int, or Embed.Empty but received {value.__class__.__name__} instead.')
 
     color = colour
 

@@ -43,12 +43,12 @@ from typing import (
     runtime_checkable,
 )
 
-import PDA
+import pda
 from .errors import *
 
 if TYPE_CHECKING:
     from .context import Context
-    from PDA.message import PartialMessageableChannel
+    from pda.message import PartialMessageableChannel
 
 
 __all__ = (
@@ -90,11 +90,11 @@ def _get_from_guilds(bot, getter, argument):
     return result
 
 
-_utils_get = PDA.utils.get
+_utils_get = pda.utils.get
 T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
-CT = TypeVar('CT', bound=PDA.abc.GuildChannel)
-TT = TypeVar('TT', bound=PDA.Thread)
+CT = TypeVar('CT', bound=pda.abc.GuildChannel)
+TT = TypeVar('TT', bound=pda.Thread)
 
 
 @runtime_checkable
@@ -144,8 +144,8 @@ class IDConverter(Converter[T_co]):
         return _ID_REGEX.match(argument)
 
 
-class ObjectConverter(IDConverter[PDA.Object]):
-    """Converts to a :class:`~PDA.Object`.
+class ObjectConverter(IDConverter[pda.Object]):
+    """Converts to a :class:`~pda.Object`.
 
     The argument must follow the valid ID or mention formats (e.g. `<@80088516616269824>`).
 
@@ -157,7 +157,7 @@ class ObjectConverter(IDConverter[PDA.Object]):
     2. Lookup by member, role, or channel mention.
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Object:
+    async def convert(self, ctx: Context, argument: str) -> pda.Object:
         match = self._get_id_match(argument) or re.match(r'<(?:@(?:!|&)?|#)([0-9]{15,20})>$', argument)
 
         if match is None:
@@ -165,11 +165,11 @@ class ObjectConverter(IDConverter[PDA.Object]):
 
         result = int(match.group(1))
 
-        return PDA.Object(id=result)
+        return pda.Object(id=result)
 
 
-class MemberConverter(IDConverter[PDA.Member]):
-    """Converts to a :class:`~PDA.Member`.
+class MemberConverter(IDConverter[pda.Member]):
+    """Converts to a :class:`~pda.Member`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -195,10 +195,10 @@ class MemberConverter(IDConverter[PDA.Member]):
         if len(argument) > 5 and argument[-5] == '#':
             username, _, discriminator = argument.rpartition('#')
             members = await guild.query_members(username, limit=100, cache=cache)
-            return PDA.utils.get(members, name=username, discriminator=discriminator)
+            return pda.utils.get(members, name=username, discriminator=discriminator)
         else:
             members = await guild.query_members(argument, limit=100, cache=cache)
-            return PDA.utils.find(lambda m: m.name == argument or m.nick == argument, members)
+            return pda.utils.find(lambda m: m.name == argument or m.nick == argument, members)
 
     async def query_member_by_id(self, bot, guild, user_id):
         ws = bot._get_websocket(shard_id=guild.shard_id)
@@ -208,7 +208,7 @@ class MemberConverter(IDConverter[PDA.Member]):
             # So we don't have to wait ~60 seconds for the query to finish
             try:
                 member = await guild.fetch_member(user_id)
-            except PDA.HTTPException:
+            except pda.HTTPException:
                 return None
 
             if cache:
@@ -221,7 +221,7 @@ class MemberConverter(IDConverter[PDA.Member]):
             return None
         return members[0]
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Member:
+    async def convert(self, ctx: Context, argument: str) -> pda.Member:
         bot = ctx.bot
         match = self._get_id_match(argument) or re.match(r'<@!?([0-9]{15,20})>$', argument)
         guild = ctx.guild
@@ -255,8 +255,8 @@ class MemberConverter(IDConverter[PDA.Member]):
         return result
 
 
-class UserConverter(IDConverter[PDA.User]):
-    """Converts to a :class:`~PDA.User`.
+class UserConverter(IDConverter[pda.User]):
+    """Converts to a :class:`~pda.User`.
 
     All lookups are via the global user cache.
 
@@ -275,7 +275,7 @@ class UserConverter(IDConverter[PDA.User]):
         and it's not available in cache.
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.User:
+    async def convert(self, ctx: Context, argument: str) -> pda.User:
         match = self._get_id_match(argument) or re.match(r'<@!?([0-9]{15,20})>$', argument)
         result = None
         state = ctx._state
@@ -286,7 +286,7 @@ class UserConverter(IDConverter[PDA.User]):
             if result is None:
                 try:
                     result = await ctx.bot.fetch_user(user_id)
-                except PDA.HTTPException:
+                except pda.HTTPException:
                     raise UserNotFound(argument) from None
 
             return result
@@ -303,12 +303,12 @@ class UserConverter(IDConverter[PDA.User]):
             discrim = arg[-4:]
             name = arg[:-5]
             predicate = lambda u: u.name == name and u.discriminator == discrim
-            result = PDA.utils.find(predicate, state._users.values())
+            result = pda.utils.find(predicate, state._users.values())
             if result is not None:
                 return result
 
         predicate = lambda u: u.name == arg
-        result = PDA.utils.find(predicate, state._users.values())
+        result = pda.utils.find(predicate, state._users.values())
 
         if result is None:
             raise UserNotFound(argument)
@@ -316,8 +316,8 @@ class UserConverter(IDConverter[PDA.User]):
         return result
 
 
-class PartialMessageConverter(Converter[PDA.PartialMessage]):
-    """Converts to a :class:`PDA.PartialMessage`.
+class PartialMessageConverter(Converter[pda.PartialMessage]):
+    """Converts to a :class:`pda.PartialMessage`.
 
     .. versionadded:: 1.7
 
@@ -340,7 +340,7 @@ class PartialMessageConverter(Converter[PDA.PartialMessage]):
         if not match:
             raise MessageNotFound(argument)
         data = match.groupdict()
-        channel_id = PDA.utils._get_as_snowflake(data, 'channel_id')
+        channel_id = pda.utils._get_as_snowflake(data, 'channel_id')
         message_id = int(data['message_id'])
         guild_id = data.get('guild_id')
         if guild_id is None:
@@ -362,16 +362,16 @@ class PartialMessageConverter(Converter[PDA.PartialMessage]):
         else:
             return ctx.bot.get_channel(channel_id) if channel_id else ctx.channel
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.PartialMessage:
+    async def convert(self, ctx: Context, argument: str) -> pda.PartialMessage:
         guild_id, message_id, channel_id = self._get_id_matches(ctx, argument)
         channel = self._resolve_channel(ctx, guild_id, channel_id)
         if not channel:
             raise ChannelNotFound(channel_id)
-        return PDA.PartialMessage(channel=channel, id=message_id)
+        return pda.PartialMessage(channel=channel, id=message_id)
 
 
-class MessageConverter(IDConverter[PDA.Message]):
-    """Converts to a :class:`PDA.Message`.
+class MessageConverter(IDConverter[pda.Message]):
+    """Converts to a :class:`pda.Message`.
 
     .. versionadded:: 1.1
 
@@ -385,7 +385,7 @@ class MessageConverter(IDConverter[PDA.Message]):
          Raise :exc:`.ChannelNotFound`, :exc:`.MessageNotFound` or :exc:`.ChannelNotReadable` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Message:
+    async def convert(self, ctx: Context, argument: str) -> pda.Message:
         guild_id, message_id, channel_id = PartialMessageConverter._get_id_matches(ctx, argument)
         message = ctx.bot._connection._get_message(message_id)
         if message:
@@ -395,14 +395,14 @@ class MessageConverter(IDConverter[PDA.Message]):
             raise ChannelNotFound(channel_id)
         try:
             return await channel.fetch_message(message_id)
-        except PDA.NotFound:
+        except pda.NotFound:
             raise MessageNotFound(argument)
-        except PDA.Forbidden:
+        except pda.Forbidden:
             raise ChannelNotReadable(channel)
 
 
-class GuildChannelConverter(IDConverter[PDA.abc.GuildChannel]):
-    """Converts to a :class:`~PDA.abc.GuildChannel`.
+class GuildChannelConverter(IDConverter[pda.abc.GuildChannel]):
+    """Converts to a :class:`~pda.abc.GuildChannel`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -416,8 +416,8 @@ class GuildChannelConverter(IDConverter[PDA.abc.GuildChannel]):
     .. versionadded:: 2.0
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.abc.GuildChannel:
-        return self._resolve_channel(ctx, argument, 'channels', PDA.abc.GuildChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.abc.GuildChannel:
+        return self._resolve_channel(ctx, argument, 'channels', pda.abc.GuildChannel)
 
     @staticmethod
     def _resolve_channel(ctx: Context, argument: str, attribute: str, type: Type[CT]) -> CT:
@@ -431,13 +431,13 @@ class GuildChannelConverter(IDConverter[PDA.abc.GuildChannel]):
             # not a mention
             if guild:
                 iterable: Iterable[CT] = getattr(guild, attribute)
-                result: Optional[CT] = PDA.utils.get(iterable, name=argument)
+                result: Optional[CT] = pda.utils.get(iterable, name=argument)
             else:
 
                 def check(c):
                     return isinstance(c, type) and c.name == argument
 
-                result = PDA.utils.find(check, bot.get_all_channels())
+                result = pda.utils.find(check, bot.get_all_channels())
         else:
             channel_id = int(match.group(1))
             if guild:
@@ -462,7 +462,7 @@ class GuildChannelConverter(IDConverter[PDA.abc.GuildChannel]):
             # not a mention
             if guild:
                 iterable: Iterable[TT] = getattr(guild, attribute)
-                result: Optional[TT] = PDA.utils.get(iterable, name=argument)
+                result: Optional[TT] = pda.utils.get(iterable, name=argument)
         else:
             thread_id = int(match.group(1))
             if guild:
@@ -474,8 +474,8 @@ class GuildChannelConverter(IDConverter[PDA.abc.GuildChannel]):
         return result
 
 
-class TextChannelConverter(IDConverter[PDA.TextChannel]):
-    """Converts to a :class:`~PDA.TextChannel`.
+class TextChannelConverter(IDConverter[pda.TextChannel]):
+    """Converts to a :class:`~pda.TextChannel`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -490,12 +490,12 @@ class TextChannelConverter(IDConverter[PDA.TextChannel]):
          Raise :exc:`.ChannelNotFound` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.TextChannel:
-        return GuildChannelConverter._resolve_channel(ctx, argument, 'text_channels', PDA.TextChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.TextChannel:
+        return GuildChannelConverter._resolve_channel(ctx, argument, 'text_channels', pda.TextChannel)
 
 
-class VoiceChannelConverter(IDConverter[PDA.VoiceChannel]):
-    """Converts to a :class:`~PDA.VoiceChannel`.
+class VoiceChannelConverter(IDConverter[pda.VoiceChannel]):
+    """Converts to a :class:`~pda.VoiceChannel`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -510,12 +510,12 @@ class VoiceChannelConverter(IDConverter[PDA.VoiceChannel]):
          Raise :exc:`.ChannelNotFound` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.VoiceChannel:
-        return GuildChannelConverter._resolve_channel(ctx, argument, 'voice_channels', PDA.VoiceChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.VoiceChannel:
+        return GuildChannelConverter._resolve_channel(ctx, argument, 'voice_channels', pda.VoiceChannel)
 
 
-class StageChannelConverter(IDConverter[PDA.StageChannel]):
-    """Converts to a :class:`~PDA.StageChannel`.
+class StageChannelConverter(IDConverter[pda.StageChannel]):
+    """Converts to a :class:`~pda.StageChannel`.
 
     .. versionadded:: 1.7
 
@@ -529,12 +529,12 @@ class StageChannelConverter(IDConverter[PDA.StageChannel]):
     3. Lookup by name
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.StageChannel:
-        return GuildChannelConverter._resolve_channel(ctx, argument, 'stage_channels', PDA.StageChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.StageChannel:
+        return GuildChannelConverter._resolve_channel(ctx, argument, 'stage_channels', pda.StageChannel)
 
 
-class CategoryChannelConverter(IDConverter[PDA.CategoryChannel]):
-    """Converts to a :class:`~PDA.CategoryChannel`.
+class CategoryChannelConverter(IDConverter[pda.CategoryChannel]):
+    """Converts to a :class:`~pda.CategoryChannel`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -549,12 +549,12 @@ class CategoryChannelConverter(IDConverter[PDA.CategoryChannel]):
          Raise :exc:`.ChannelNotFound` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.CategoryChannel:
-        return GuildChannelConverter._resolve_channel(ctx, argument, 'categories', PDA.CategoryChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.CategoryChannel:
+        return GuildChannelConverter._resolve_channel(ctx, argument, 'categories', pda.CategoryChannel)
 
 
-class StoreChannelConverter(IDConverter[PDA.StoreChannel]):
-    """Converts to a :class:`~PDA.StoreChannel`.
+class StoreChannelConverter(IDConverter[pda.StoreChannel]):
+    """Converts to a :class:`~pda.StoreChannel`.
 
     All lookups are via the local guild. If in a DM context, then the lookup
     is done by the global cache.
@@ -568,12 +568,12 @@ class StoreChannelConverter(IDConverter[PDA.StoreChannel]):
     .. versionadded:: 1.7
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.StoreChannel:
-        return GuildChannelConverter._resolve_channel(ctx, argument, 'channels', PDA.StoreChannel)
+    async def convert(self, ctx: Context, argument: str) -> pda.StoreChannel:
+        return GuildChannelConverter._resolve_channel(ctx, argument, 'channels', pda.StoreChannel)
 
 
-class ThreadConverter(IDConverter[PDA.Thread]):
-    """Coverts to a :class:`~PDA.Thread`.
+class ThreadConverter(IDConverter[pda.Thread]):
+    """Coverts to a :class:`~pda.Thread`.
 
     All lookups are via the local guild.
 
@@ -586,12 +586,12 @@ class ThreadConverter(IDConverter[PDA.Thread]):
     .. versionadded: 2.0
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Thread:
-        return GuildChannelConverter._resolve_thread(ctx, argument, 'threads', PDA.Thread)
+    async def convert(self, ctx: Context, argument: str) -> pda.Thread:
+        return GuildChannelConverter._resolve_thread(ctx, argument, 'threads', pda.Thread)
 
 
-class ColourConverter(Converter[PDA.Colour]):
-    """Converts to a :class:`~PDA.Colour`.
+class ColourConverter(Converter[pda.Colour]):
+    """Converts to a :class:`~pda.Colour`.
 
     .. versionchanged:: 1.5
         Add an alias named ColorConverter
@@ -602,7 +602,7 @@ class ColourConverter(Converter[PDA.Colour]):
     - ``#<hex>``
     - ``0x#<hex>``
     - ``rgb(<number>, <number>, <number>)``
-    - Any of the ``classmethod`` in :class:`~PDA.Colour`
+    - Any of the ``classmethod`` in :class:`~pda.Colour`
 
         - The ``_`` in the name can be optionally replaced with spaces.
 
@@ -627,7 +627,7 @@ class ColourConverter(Converter[PDA.Colour]):
         except ValueError:
             raise BadColourArgument(argument)
         else:
-            return PDA.Color(value=value)
+            return pda.Color(value=value)
 
     def parse_rgb_number(self, argument, number):
         if number[-1] == '%':
@@ -649,9 +649,9 @@ class ColourConverter(Converter[PDA.Colour]):
         red = self.parse_rgb_number(argument, match.group('r'))
         green = self.parse_rgb_number(argument, match.group('g'))
         blue = self.parse_rgb_number(argument, match.group('b'))
-        return PDA.Color.from_rgb(red, green, blue)
+        return pda.Color.from_rgb(red, green, blue)
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Colour:
+    async def convert(self, ctx: Context, argument: str) -> pda.Colour:
         if argument[0] == '#':
             return self.parse_hex_number(argument[1:])
 
@@ -667,7 +667,7 @@ class ColourConverter(Converter[PDA.Colour]):
             return self.parse_rgb(arg)
 
         arg = arg.replace(' ', '_')
-        method = getattr(PDA.Colour, arg, None)
+        method = getattr(pda.Colour, arg, None)
         if arg.startswith('from_') or method is None or not inspect.ismethod(method):
             raise BadColourArgument(arg)
         return method()
@@ -676,8 +676,8 @@ class ColourConverter(Converter[PDA.Colour]):
 ColorConverter = ColourConverter
 
 
-class RoleConverter(IDConverter[PDA.Role]):
-    """Converts to a :class:`~PDA.Role`.
+class RoleConverter(IDConverter[pda.Role]):
+    """Converts to a :class:`~pda.Role`.
 
     All lookups are via the local guild. If in a DM context, the converter raises
     :exc:`.NoPrivateMessage` exception.
@@ -692,7 +692,7 @@ class RoleConverter(IDConverter[PDA.Role]):
          Raise :exc:`.RoleNotFound` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Role:
+    async def convert(self, ctx: Context, argument: str) -> pda.Role:
         guild = ctx.guild
         if not guild:
             raise NoPrivateMessage()
@@ -701,22 +701,22 @@ class RoleConverter(IDConverter[PDA.Role]):
         if match:
             result = guild.get_role(int(match.group(1)))
         else:
-            result = PDA.utils.get(guild._roles.values(), name=argument)
+            result = pda.utils.get(guild._roles.values(), name=argument)
 
         if result is None:
             raise RoleNotFound(argument)
         return result
 
 
-class GameConverter(Converter[PDA.Game]):
-    """Converts to :class:`~PDA.Game`."""
+class GameConverter(Converter[pda.Game]):
+    """Converts to :class:`~pda.Game`."""
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Game:
-        return PDA.Game(name=argument)
+    async def convert(self, ctx: Context, argument: str) -> pda.Game:
+        return pda.Game(name=argument)
 
 
-class InviteConverter(Converter[PDA.Invite]):
-    """Converts to a :class:`~PDA.Invite`.
+class InviteConverter(Converter[pda.Invite]):
+    """Converts to a :class:`~pda.Invite`.
 
     This is done via an HTTP request using :meth:`.Bot.fetch_invite`.
 
@@ -724,7 +724,7 @@ class InviteConverter(Converter[PDA.Invite]):
          Raise :exc:`.BadInviteArgument` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Invite:
+    async def convert(self, ctx: Context, argument: str) -> pda.Invite:
         try:
             invite = await ctx.bot.fetch_invite(argument)
             return invite
@@ -732,8 +732,8 @@ class InviteConverter(Converter[PDA.Invite]):
             raise BadInviteArgument(argument) from exc
 
 
-class GuildConverter(IDConverter[PDA.Guild]):
-    """Converts to a :class:`~PDA.Guild`.
+class GuildConverter(IDConverter[pda.Guild]):
+    """Converts to a :class:`~pda.Guild`.
 
     The lookup strategy is as follows (in order):
 
@@ -743,7 +743,7 @@ class GuildConverter(IDConverter[PDA.Guild]):
     .. versionadded:: 1.7
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Guild:
+    async def convert(self, ctx: Context, argument: str) -> pda.Guild:
         match = self._get_id_match(argument)
         result = None
 
@@ -752,15 +752,15 @@ class GuildConverter(IDConverter[PDA.Guild]):
             result = ctx.bot.get_guild(guild_id)
 
         if result is None:
-            result = PDA.utils.get(ctx.bot.guilds, name=argument)
+            result = pda.utils.get(ctx.bot.guilds, name=argument)
 
             if result is None:
                 raise GuildNotFound(argument)
         return result
 
 
-class EmojiConverter(IDConverter[PDA.Emoji]):
-    """Converts to a :class:`~PDA.Emoji`.
+class EmojiConverter(IDConverter[pda.Emoji]):
+    """Converts to a :class:`~pda.Emoji`.
 
     All lookups are done for the local guild first, if available. If that lookup
     fails, then it checks the client's global cache.
@@ -775,7 +775,7 @@ class EmojiConverter(IDConverter[PDA.Emoji]):
          Raise :exc:`.EmojiNotFound` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.Emoji:
+    async def convert(self, ctx: Context, argument: str) -> pda.Emoji:
         match = self._get_id_match(argument) or re.match(r'<a?:[a-zA-Z0-9\_]{1,32}:([0-9]{15,20})>$', argument)
         result = None
         bot = ctx.bot
@@ -784,10 +784,10 @@ class EmojiConverter(IDConverter[PDA.Emoji]):
         if match is None:
             # Try to get the emoji by name. Try local guild first.
             if guild:
-                result = PDA.utils.get(guild.emojis, name=argument)
+                result = pda.utils.get(guild.emojis, name=argument)
 
             if result is None:
-                result = PDA.utils.get(bot.emojis, name=argument)
+                result = pda.utils.get(bot.emojis, name=argument)
         else:
             emoji_id = int(match.group(1))
 
@@ -800,8 +800,8 @@ class EmojiConverter(IDConverter[PDA.Emoji]):
         return result
 
 
-class PartialEmojiConverter(Converter[PDA.PartialEmoji]):
-    """Converts to a :class:`~PDA.PartialEmoji`.
+class PartialEmojiConverter(Converter[pda.PartialEmoji]):
+    """Converts to a :class:`~pda.PartialEmoji`.
 
     This is done by extracting the animated flag, name and ID from the emoji.
 
@@ -809,7 +809,7 @@ class PartialEmojiConverter(Converter[PDA.PartialEmoji]):
          Raise :exc:`.PartialEmojiConversionFailure` instead of generic :exc:`.BadArgument`
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.PartialEmoji:
+    async def convert(self, ctx: Context, argument: str) -> pda.PartialEmoji:
         match = re.match(r'<(a?):([a-zA-Z0-9\_]{1,32}):([0-9]{15,20})>$', argument)
 
         if match:
@@ -817,15 +817,15 @@ class PartialEmojiConverter(Converter[PDA.PartialEmoji]):
             emoji_name = match.group(2)
             emoji_id = int(match.group(3))
 
-            return PDA.PartialEmoji.with_state(
+            return pda.PartialEmoji.with_state(
                 ctx.bot._connection, animated=emoji_animated, name=emoji_name, id=emoji_id
             )
 
         raise PartialEmojiConversionFailure(argument)
 
 
-class GuildStickerConverter(IDConverter[PDA.GuildSticker]):
-    """Converts to a :class:`~PDA.GuildSticker`.
+class GuildStickerConverter(IDConverter[pda.GuildSticker]):
+    """Converts to a :class:`~pda.GuildSticker`.
 
     All lookups are done for the local guild first, if available. If that lookup
     fails, then it checks the client's global cache.
@@ -838,7 +838,7 @@ class GuildStickerConverter(IDConverter[PDA.GuildSticker]):
     .. versionadded:: 2.0
     """
 
-    async def convert(self, ctx: Context, argument: str) -> PDA.GuildSticker:
+    async def convert(self, ctx: Context, argument: str) -> pda.GuildSticker:
         match = self._get_id_match(argument)
         result = None
         bot = ctx.bot
@@ -847,10 +847,10 @@ class GuildStickerConverter(IDConverter[PDA.GuildSticker]):
         if match is None:
             # Try to get the sticker by name. Try local guild first.
             if guild:
-                result = PDA.utils.get(guild.stickers, name=argument)
+                result = pda.utils.get(guild.stickers, name=argument)
 
             if result is None:
-                result = PDA.utils.get(bot.stickers, name=argument)
+                result = pda.utils.get(bot.stickers, name=argument)
         else:
             sticker_id = int(match.group(1))
 
@@ -867,7 +867,7 @@ class clean_content(Converter[str]):
     """Converts the argument to mention scrubbed version of
     said content.
 
-    This behaves similarly to :attr:`~PDA.Message.clean_content`.
+    This behaves similarly to :attr:`~pda.Message.clean_content`.
 
     Attributes
     ------------
@@ -944,12 +944,12 @@ class clean_content(Converter[str]):
 
         result = re.sub(r'<(@[!&]?|#)([0-9]{15,20})>', repl, argument)
         if self.escape_markdown:
-            result = PDA.utils.escape_markdown(result)
+            result = pda.utils.escape_markdown(result)
         elif self.remove_markdown:
-            result = PDA.utils.remove_markdown(result)
+            result = pda.utils.remove_markdown(result)
 
         # Completely ensure no mentions escape:
-        return PDA.utils.escape_mentions(result)
+        return pda.utils.escape_mentions(result)
 
 
 class Greedy(List[T]):
@@ -1033,26 +1033,26 @@ def is_generic_type(tp: Any, *, _GenericAlias: Type = _GenericAlias) -> bool:
 
 
 CONVERTER_MAPPING: Dict[Type[Any], Any] = {
-    PDA.Object: ObjectConverter,
-    PDA.Member: MemberConverter,
-    PDA.User: UserConverter,
-    PDA.Message: MessageConverter,
-    PDA.PartialMessage: PartialMessageConverter,
-    PDA.TextChannel: TextChannelConverter,
-    PDA.Invite: InviteConverter,
-    PDA.Guild: GuildConverter,
-    PDA.Role: RoleConverter,
-    PDA.Game: GameConverter,
-    PDA.Colour: ColourConverter,
-    PDA.VoiceChannel: VoiceChannelConverter,
-    PDA.StageChannel: StageChannelConverter,
-    PDA.Emoji: EmojiConverter,
-    PDA.PartialEmoji: PartialEmojiConverter,
-    PDA.CategoryChannel: CategoryChannelConverter,
-    PDA.StoreChannel: StoreChannelConverter,
-    PDA.Thread: ThreadConverter,
-    PDA.abc.GuildChannel: GuildChannelConverter,
-    PDA.GuildSticker: GuildStickerConverter,
+    pda.Object: ObjectConverter,
+    pda.Member: MemberConverter,
+    pda.User: UserConverter,
+    pda.Message: MessageConverter,
+    pda.PartialMessage: PartialMessageConverter,
+    pda.TextChannel: TextChannelConverter,
+    pda.Invite: InviteConverter,
+    pda.Guild: GuildConverter,
+    pda.Role: RoleConverter,
+    pda.Game: GameConverter,
+    pda.Colour: ColourConverter,
+    pda.VoiceChannel: VoiceChannelConverter,
+    pda.StageChannel: StageChannelConverter,
+    pda.Emoji: EmojiConverter,
+    pda.PartialEmoji: PartialEmojiConverter,
+    pda.CategoryChannel: CategoryChannelConverter,
+    pda.StoreChannel: StoreChannelConverter,
+    pda.Thread: ThreadConverter,
+    pda.abc.GuildChannel: GuildChannelConverter,
+    pda.GuildSticker: GuildStickerConverter,
 }
 
 
@@ -1065,7 +1065,7 @@ async def _actual_conversion(ctx: Context, converter, argument: str, param: insp
     except AttributeError:
         pass
     else:
-        if module is not None and (module.startswith('PDA.') and not module.endswith('converter')):
+        if module is not None and (module.startswith('pda.') and not module.endswith('converter')):
             converter = CONVERTER_MAPPING.get(converter, converter)
 
     try:

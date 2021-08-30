@@ -1,9 +1,9 @@
 import asyncio
 
-import PDA
+import pda
 import youtube_dl
 
-from PDA.ext import commands
+from pda.ext import commands
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -30,7 +30,7 @@ ffmpeg_options = {
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 
-class YTDLSource(PDA.PCMVolumeTransformer):
+class YTDLSource(pda.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
 
@@ -49,7 +49,7 @@ class YTDLSource(PDA.PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(PDA.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+        return cls(pda.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
 class Music(commands.Cog):
@@ -57,7 +57,7 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def join(self, ctx, *, channel: PDA.VoiceChannel):
+    async def join(self, ctx, *, channel: pda.VoiceChannel):
         """Joins a voice channel"""
 
         if ctx.voice_client is not None:
@@ -69,7 +69,7 @@ class Music(commands.Cog):
     async def play(self, ctx, *, query):
         """Plays a file from the local filesystem"""
 
-        source = PDA.PCMVolumeTransformer(PDA.FFmpegPCMAudio(query))
+        source = pda.PCMVolumeTransformer(pda.FFmpegPCMAudio(query))
         ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
 
         await ctx.send(f'Now playing: {query}')

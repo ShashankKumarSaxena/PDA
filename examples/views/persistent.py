@@ -1,5 +1,5 @@
-from PDA.ext import commands
-import PDA
+from pda.ext import commands
+import pda
 
 
 # Define a simple View that persists between bot restarts
@@ -10,20 +10,20 @@ import PDA
 # prevent conflicts with other buttons the bot sends.
 # For this example the custom_id is prefixed with the name of the bot.
 # Note that custom_ids can only be up to 100 characters long.
-class PersistentView(PDA.ui.View):
+class PersistentView(pda.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
 
-    @PDA.ui.button(label='Green', style=PDA.ButtonStyle.green, custom_id='persistent_view:green')
-    async def green(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='Green', style=pda.ButtonStyle.green, custom_id='persistent_view:green')
+    async def green(self, button: pda.ui.Button, interaction: pda.Interaction):
         await interaction.response.send_message('This is green.', ephemeral=True)
 
-    @PDA.ui.button(label='Red', style=PDA.ButtonStyle.red, custom_id='persistent_view:red')
-    async def red(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='Red', style=pda.ButtonStyle.red, custom_id='persistent_view:red')
+    async def red(self, button: pda.ui.Button, interaction: pda.Interaction):
         await interaction.response.send_message('This is red.', ephemeral=True)
 
-    @PDA.ui.button(label='Grey', style=PDA.ButtonStyle.grey, custom_id='persistent_view:grey')
-    async def grey(self, button: PDA.ui.Button, interaction: PDA.Interaction):
+    @pda.ui.button(label='Grey', style=pda.ButtonStyle.grey, custom_id='persistent_view:grey')
+    async def grey(self, button: pda.ui.Button, interaction: pda.Interaction):
         await interaction.response.send_message('This is grey.', ephemeral=True)
 
 

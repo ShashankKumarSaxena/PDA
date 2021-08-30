@@ -19,9 +19,9 @@ It looks something like this:
 
 .. code-block:: python3
 
-    import PDA
+    import pda
 
-    client = PDA.Client()
+    client = pda.Client()
 
     @client.event
     async def on_ready():
@@ -37,14 +37,14 @@ It looks something like this:
 
     client.run('your token here')
 
-Let's name this file ``example_bot.py``. Make sure not to name it ``PDA.py`` as that'll conflict
+Let's name this file ``example_bot.py``. Make sure not to name it ``pda.py`` as that'll conflict
 with the library.
 
 There's a lot going on here, so let's walk you through it step by step.
 
 1. The first line just imports the library, if this raises a `ModuleNotFoundError` or `ImportError`
    then head on over to :ref:`installing` section to properly install.
-2. Next, we create an instance of a :class:`Client`. This client is our connection to PDA.
+2. Next, we create an instance of a :class:`Client`. This client is our connection to pda.
 3. We then use the :meth:`Client.event` decorator to register an event. This library has many events.
    Since this library is asynchronous, we do things in a "callback" style manner.
 

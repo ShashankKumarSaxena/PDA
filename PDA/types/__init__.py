@@ -1,5 +1,5 @@
 """
-PDA.types
+pda.types
 ~~~~~~~~~~~~~~
 
 Typings for the Discord API

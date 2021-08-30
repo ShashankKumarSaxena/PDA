@@ -54,7 +54,7 @@ class Button(Item[V]):
 
     Parameters
     ------------
-    style: :class:`PDA.ButtonStyle`
+    style: :class:`pda.ButtonStyle`
         The style of the button.
     custom_id: Optional[:class:`str`]
         The ID of the button that gets received during an interaction.
@@ -127,7 +127,7 @@ class Button(Item[V]):
 
     @property
     def style(self) -> ButtonStyle:
-        """:class:`PDA.ButtonStyle`: The style of the button."""
+        """:class:`pda.ButtonStyle`: The style of the button."""
         return self._underlying.style
 
     @style.setter
@@ -238,8 +238,8 @@ def button(
     """A decorator that attaches a button to a component.
 
     The function being decorated should have three parameters, ``self`` representing
-    the :class:`PDA.ui.View`, the :class:`PDA.ui.Button` being pressed and
-    the :class:`PDA.Interaction` you receive.
+    the :class:`pda.ui.View`, the :class:`pda.ui.Button` being pressed and
+    the :class:`pda.Interaction` you receive.
 
     .. note::
 
