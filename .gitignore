@@ -14,9 +14,9 @@ docs/crowdin.py
 *.jpg
 *.flac
 *.mo
-PDATest/
-dist/
-discord_pda.egg-info/
-build/
-.metals/
+PDATest/*
+dist/*
+discord_pda.egg-info/*
+build/*
+.metals/*
 pda/py.typed
