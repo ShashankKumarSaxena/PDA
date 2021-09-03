@@ -23,6 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 from __future__ import annotations
+from enum import IntFlag
 
 from typing import Any, Callable, ClassVar, Dict, Generic, Iterator, List, Optional, Tuple, Type, TypeVar, overload
 
@@ -1066,3 +1067,12 @@ class ApplicationFlags(BaseFlags):
     def embedded(self):
         """:class:`bool`: Returns ``True`` if the application is embedded within the Discord client."""
         return 1 << 17
+
+class CallbackFlags(IntFlag):
+    """Flags to pass to the ``flags`` argument of :meth:`Context.respond`.
+    .. attribute:: EPHEMERAL
+        Only the user receiving the message can see it
+    """
+    EPHEMERAL = 1 << 6
+    
+MessageFlags = CallbackFlags

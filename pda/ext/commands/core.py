@@ -22,6 +22,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 from __future__ import annotations
+from collections import defaultdict
 
 from typing import (
     Any,
@@ -38,6 +39,7 @@ from typing import (
     TypeVar,
     Type,
     TYPE_CHECKING,
+    cast,
     overload,
 )
 import asyncio
@@ -49,7 +51,7 @@ import pda
 
 from .errors import *
 from .cooldowns import Cooldown, BucketType, CooldownMapping, MaxConcurrency, DynamicCooldownMapping
-from .converter import run_converters, get_converter, Greedy
+from .converter import CONVERTER_MAPPING, run_converters, get_converter, Greedy, Option, Converter
 from ._types import _BaseCommand
 from .cog import Cog
 from .context import Context
@@ -101,11 +103,25 @@ MISSING: Any = pda.utils.MISSING
 T = TypeVar('T')
 CogT = TypeVar('CogT', bound='Cog')
 CommandT = TypeVar('CommandT', bound='Command')
+SlashCommandT = TypeVar('SlashCommandT', bound='SlashCommand')
 ContextT = TypeVar('ContextT', bound='Context')
 # CHT = TypeVar('CHT', bound='Check')
 GroupT = TypeVar('GroupT', bound='Group')
 HookT = TypeVar('HookT', bound='Hook')
 ErrorT = TypeVar('ErrorT', bound='Error')
+
+REVERSED_CONVERTER_MAPPING = {v: k for k, v in CONVERTER_MAPPING.items()}
+
+application_option_type_lookup = {
+    str: 3,
+    bool: 5,
+    int: 4,
+    (pda.Member, pda.User): 6,
+    (pda.abc.GuildChannel, pda.DMChannel): 7,
+    pda.Role: 8,
+    pda.Object: 9,
+    float: 10
+}
 
 if TYPE_CHECKING:
     P = ParamSpec('P')
@@ -127,9 +143,15 @@ def get_signature_parameters(function: Callable[..., Any], globalns: Dict[str, A
     signature = inspect.signature(function)
     params = {}
     cache: Dict[str, Any] = {}
+    descriptions = defaultdict(lambda: "No description")
     eval_annotation = pda.utils.evaluate_annotation
     for name, parameter in signature.parameters.items():
         annotation = parameter.annotation
+        if isinstance(parameter.default, Option):
+            option = parameter.default
+            descriptions[name] = option.description
+            parameter = parameter.replace(default=option.default)
+        
         if annotation is parameter.empty:
             params[name] = parameter
             continue
@@ -143,7 +165,7 @@ def get_signature_parameters(function: Callable[..., Any], globalns: Dict[str, A
 
         params[name] = parameter.replace(annotation=annotation)
 
-    return params
+    return params, descriptions
 
 
 def wrap_callback(coro):
@@ -325,6 +347,8 @@ class Command(_BaseCommand, Generic[CogT, P, T]):
         self.rest_is_raw: bool = kwargs.get('rest_is_raw', False)
         self.aliases: Union[List[str], Tuple[str]] = kwargs.get('aliases', [])
         self.extras: Dict[str, Any] = kwargs.get('extras', {})
+        self.is_slash: bool = kwargs.get('slash', False)
+        self.slash_command_guilds = kwargs.get('slash_guilds', None)
 
         if not isinstance(self.aliases, (list, tuple)):
             raise TypeError("Aliases of a command must be a list or a tuple of strings.")
@@ -384,7 +408,7 @@ class Command(_BaseCommand, Generic[CogT, P, T]):
             pass
         else:
             self.after_invoke(after_invoke)
-
+        
     @property
     def callback(self) -> Union[
             Callable[Concatenate[CogT, Context, P], Coro[T]],
@@ -406,7 +430,7 @@ class Command(_BaseCommand, Generic[CogT, P, T]):
         except AttributeError:
             globalns = {}
 
-        self.params = get_signature_parameters(function, globalns)
+        self.params, self.option_descriptions = get_signature_parameters(function, globalns)
 
     def add_check(self, func: Check) -> None:
         """Adds a check to the command.
@@ -1124,6 +1148,74 @@ class Command(_BaseCommand, Generic[CogT, P, T]):
             return await pda.utils.async_all(predicate(ctx) for predicate in predicates)  # type: ignore
         finally:
             ctx.command = original
+            
+    async def register_slash(self, nest: int=0):
+        if self.is_slash is False:
+            return
+        elif nest == 3:
+            raise TypeError(f"{self.qualified_name} is too much complex to be slash!")
+        
+        payload = {
+            "name": self.name,
+            "description": self.short_doc or "No description...",
+            "options": []
+        }
+        
+        if nest != 0:
+            payload["type"] = 1
+        
+        for name, param in self.clean_params.items():
+            annotation: Type[Any] = param.annotation if param.annotation is not param.empty else str
+            origin = getattr(param.annotation, "__origin__", None)
+
+            if origin is None and isinstance(annotation, Greedy):
+                annotation = annotation.converter
+                origin = Greedy
+            
+            option: Dict[str, Any] = {
+                "name": name,
+                "description": self.option_descriptions[name],
+                "required": (param.default is param.empty and not self._is_typing_optional(annotation)) or param.kind == param.VAR_POSITIONAL
+            }
+            
+            annotation = cast(Any, annotation)
+            if not option.__getitem__("required") and origin is not None and annotation.__args__.__len__() == 2:
+                annotation, origin = annotation.__args__[0], None
+            
+            if origin is None:
+                if not inspect.isclass(annotation):
+                    annotation = type(annotation)
+                
+                if issubclass(annotation, Converter):
+                    # If this is a converter, we want to check if it is a native
+                    # one, in which we can get the original type, eg, (MemberConverter -> Member)
+                    annotation = REVERSED_CONVERTER_MAPPING.get(annotation, annotation)
+
+                option["type"] = 3
+                for python_type, discord_type in application_option_type_lookup.items():
+                    if issubclass(annotation, python_type):
+                        option["type"] = discord_type
+                        break
+
+            elif origin is Literal and origin.__args__.__len__() <= 25: # type: ignore
+                option["choices"] = [{
+                    "name": literal_value,
+                    "value": literal_value
+                } for literal_value in origin.__args__] # type: ignore
+            else:
+                option["type"] = 3 # STRING
+
+            payload["options"].append(option)
+
+        # Now we have all options, make sure required is before optional.
+        from operator import itemgetter
+        payload["options"] = sorted(payload["options"], key=itemgetter("required"), reverse=True)
+        return payload # type: ignore
+
+class SlashCommand(Command):
+    def __init__(self, func: Callable, **kwargs):
+        super().__init__(func, **kwargs)
+        self.slash: bool = True
 
 class GroupMixin(Generic[CogT]):
     """A mixin that implements common functionality for classes that behave
@@ -1567,6 +1659,8 @@ def command(
     """
     if cls is MISSING:
         cls = Command  # type: ignore
+    elif cls is SlashCommandT:
+        cls = SlashCommand
 
     def decorator(func: Union[
             Callable[Concatenate[ContextT, P], Coro[Any]],

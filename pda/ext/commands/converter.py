@@ -1005,6 +1005,16 @@ class Greedy(List[T]):
         return cls(converter=converter)
 
 
+DT = TypeVar("DT", bound=str)
+class Option(Generic[T, DT]):
+    description: DT
+    default: Union[T, inspect.Parameter.empty]
+    __slots__ = ("default", "description",)
+
+    def __init__(self, default: T = inspect.Parameter.empty, *, description: DT) -> None:
+        self.description = description
+        self.default = default
+
 def _convert_to_bool(argument: str) -> bool:
     lowered = argument.lower()
     if lowered in ('yes', 'y', 'true', 't', '1', 'enable', 'on'):

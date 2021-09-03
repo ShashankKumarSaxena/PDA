@@ -22,6 +22,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from enum import IntEnum
 import types
 from collections import namedtuple
 from typing import Any, ClassVar, Dict, List, Optional, TYPE_CHECKING, Type, TypeVar
@@ -588,6 +589,33 @@ class NSFWLevel(Enum, comparable=True):
     safe = 2
     age_restricted = 3
 
+
+class ApplicationCommandOptionType(IntEnum):
+    SUB_COMMAND = 1
+    SUB_COMMAND_GROUP = 2
+    STRING = 3
+    INTEGER = 4
+    BOOLEAN = 5
+    USER = 6
+    CHANNEL = 7
+    ROLE = 8
+    MENTIONABLE = 9
+    NUMBER = 10
+    
+class ApplicationCommandPermissionType(IntEnum):
+    ROLE = 1
+    USER = 2
+
+class InteractionResponseType(IntEnum):
+    # ACK a Ping
+    Pong = PONG = 1
+    # Respond immediately to an interaction
+    CHANNEL_MESSAGE_WITH_SOURCE = ChannelMessageWithSource = 4
+    # ACK an interaction and send a response later
+    DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = DeferredChannelMessageWithSource = 5
+    # ACK a command without sending a message, showing the user's input
+    # (Former name and description, now renamed)
+    AcknowledgeWithSource = DeferredChannelMessageWithSource
 
 T = TypeVar('T')
 
